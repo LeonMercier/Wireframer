@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/01 15:23:47 by lemercie         ###   ########.fr       */
+/*   Created: 2024/04/24 11:53:20 by lemercie          #+#    #+#             */
+/*   Updated: 2024/04/24 11:57:51 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "libft.h"
 
-int	read_file(t_map map, char *filename)
+t_list	*ft_lstlast(t_list *lst)
 {
-
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc == 1)
+	while (lst)
 	{
-		ft_printf("Error: Filename missing\n");
-		return (1);
+		if (!lst->next)
+			return (lst);
+		lst = lst->next;
 	}
-	if (argc > 2)
-	{
-		ft_printf("Error: Too many arguments\n");
-		return (1);
-	}
-	(void) argv;
-	// one line becomes one int array
-	// => 2D array, formatted as [y][x]
-	// struct to store array, width and heigth
+	return (0);
 }

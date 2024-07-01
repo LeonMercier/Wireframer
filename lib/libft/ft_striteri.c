@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/01 15:23:47 by lemercie         ###   ########.fr       */
+/*   Created: 2024/04/23 11:15:04 by lemercie          #+#    #+#             */
+/*   Updated: 2024/05/07 11:55:12 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "libft.h"
 
-int	read_file(t_map map, char *filename)
+void	ft_striteri(char *s, void (*f) (unsigned int, char *))
 {
+	int	i;
 
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc == 1)
+	if (!s || !f)
+		return ;
+	i = 0;
+	while (s[i])
 	{
-		ft_printf("Error: Filename missing\n");
-		return (1);
+		f(i, &s[i]);
+		i++;
 	}
-	if (argc > 2)
-	{
-		ft_printf("Error: Too many arguments\n");
-		return (1);
-	}
-	(void) argv;
-	// one line becomes one int array
-	// => 2D array, formatted as [y][x]
-	// struct to store array, width and heigth
 }

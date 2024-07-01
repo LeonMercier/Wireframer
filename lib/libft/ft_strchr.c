@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/01 15:23:47 by lemercie         ###   ########.fr       */
+/*   Created: 2024/04/17 15:10:58 by lemercie          #+#    #+#             */
+/*   Updated: 2024/05/06 19:35:30 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
-
-int	read_file(t_map map, char *filename)
+// system function behaviour: segfault on null pointer argument
+// casting c to char means small overflows are correctly wrapped around
+// c-=256 handles large overflows
+char	*ft_strchr(const char *s, int c)
 {
+	char	cc;
 
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc == 1)
+	while (c >= 256)
+		c -= 256;
+	cc = (char) c;
+	while (*s)
 	{
-		ft_printf("Error: Filename missing\n");
-		return (1);
+		if (*s == cc)
+			return ((char *) s);
+		s++;
 	}
-	if (argc > 2)
-	{
-		ft_printf("Error: Too many arguments\n");
-		return (1);
-	}
-	(void) argv;
-	// one line becomes one int array
-	// => 2D array, formatted as [y][x]
-	// struct to store array, width and heigth
+	if (c == 0)
+		return ((char *) s);
+	return (0);
 }

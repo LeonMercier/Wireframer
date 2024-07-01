@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/01 15:23:47 by lemercie         ###   ########.fr       */
+/*   Created: 2024/04/19 16:50:30 by lemercie          #+#    #+#             */
+/*   Updated: 2024/05/07 11:49:06 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "libft.h"
 
-int	read_file(t_map map, char *filename)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
+	char	*result;
+	size_t	dstsize;
 
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc == 1)
-	{
-		ft_printf("Error: Filename missing\n");
-		return (1);
-	}
-	if (argc > 2)
-	{
-		ft_printf("Error: Too many arguments\n");
-		return (1);
-	}
-	(void) argv;
-	// one line becomes one int array
-	// => 2D array, formatted as [y][x]
-	// struct to store array, width and heigth
+	if (!s1 || !s2)
+		return (0);
+	dstsize = ft_strlen(s1) + ft_strlen(s2) + 1;
+	result = (char *) malloc(sizeof(char) * dstsize);
+	if (!result)
+		return (0);
+	ft_strlcpy(result, s1, dstsize);
+	ft_strlcpy(&result[ft_strlen(s1)], s2, dstsize);
+	return (result);
 }

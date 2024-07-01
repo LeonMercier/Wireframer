@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/01 15:23:47 by lemercie         ###   ########.fr       */
+/*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
+/*   Updated: 2024/07/01 15:17:34 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#ifndef FDF_H
+# define FDF_H
+# include "../lib/libft/libft.h"
 
-int	read_file(t_map map, char *filename)
+typedef struct	s_map
 {
+	int **arr;
+	int	width;
+	int	heigth;
+}	t_map;
 
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc == 1)
-	{
-		ft_printf("Error: Filename missing\n");
-		return (1);
-	}
-	if (argc > 2)
-	{
-		ft_printf("Error: Too many arguments\n");
-		return (1);
-	}
-	(void) argv;
-	// one line becomes one int array
-	// => 2D array, formatted as [y][x]
-	// struct to store array, width and heigth
-}
+#endif

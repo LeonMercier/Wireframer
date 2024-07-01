@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/01 15:23:47 by lemercie         ###   ########.fr       */
+/*   Created: 2024/05/24 11:36:48 by lemercie          #+#    #+#             */
+/*   Updated: 2024/06/27 14:40:33 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../libft.h"
 
-int	read_file(t_map map, char *filename)
+int	get_hexlen(uintptr_t n)
 {
+	int	len;
 
+	len = 0;
+	while (n > 0)
+	{
+		n = n / 16;
+		len++;
+	}
+	return (len);
 }
 
-int	main(int argc, char **argv)
+int	ft_write_buf(char *buf, int buflen)
 {
-	if (argc == 1)
-	{
-		ft_printf("Error: Filename missing\n");
-		return (1);
-	}
-	if (argc > 2)
-	{
-		ft_printf("Error: Too many arguments\n");
-		return (1);
-	}
-	(void) argv;
-	// one line becomes one int array
-	// => 2D array, formatted as [y][x]
-	// struct to store array, width and heigth
+	return (write(1, buf, buflen));
 }

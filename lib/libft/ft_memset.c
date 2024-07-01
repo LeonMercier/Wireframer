@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/01 15:23:47 by lemercie         ###   ########.fr       */
+/*   Created: 2024/04/16 15:02:01 by lemercie          #+#    #+#             */
+/*   Updated: 2024/05/06 18:05:56 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "libft.h"
 
-int	read_file(t_map map, char *filename)
+// system version of the function segfaults on null pointer argument,
+// hence no protection
+void	*ft_memset(void *b, int c, size_t len)
 {
+	unsigned char	*tmp;
 
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc == 1)
+	tmp = (unsigned char *) b;
+	while (len > 0)
 	{
-		ft_printf("Error: Filename missing\n");
-		return (1);
+		*tmp = (unsigned char) c;
+		tmp++;
+		len--;
 	}
-	if (argc > 2)
-	{
-		ft_printf("Error: Too many arguments\n");
-		return (1);
-	}
-	(void) argv;
-	// one line becomes one int array
-	// => 2D array, formatted as [y][x]
-	// struct to store array, width and heigth
+	return (b);
 }

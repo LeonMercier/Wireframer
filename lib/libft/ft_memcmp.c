@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/01 15:23:47 by lemercie         ###   ########.fr       */
+/*   Created: 2024/04/17 16:45:38 by lemercie          #+#    #+#             */
+/*   Updated: 2024/05/06 20:13:49 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "libft.h"
 
-int	read_file(t_map map, char *filename)
+// system function behaviour: 
+// segfault if any pointer is NULL AND n > 0
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
+	unsigned char	*tmps1;
+	unsigned char	*tmps2;
 
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc == 1)
+	tmps1 = (unsigned char *) s1;
+	tmps2 = (unsigned char *) s2;
+	while (n > 0)
 	{
-		ft_printf("Error: Filename missing\n");
-		return (1);
+		if (*tmps1 != *tmps2)
+			return (*tmps1 - *tmps2);
+		tmps1++;
+		tmps2++;
+		n--;
 	}
-	if (argc > 2)
-	{
-		ft_printf("Error: Too many arguments\n");
-		return (1);
-	}
-	(void) argv;
-	// one line becomes one int array
-	// => 2D array, formatted as [y][x]
-	// struct to store array, width and heigth
+	return (0);
 }

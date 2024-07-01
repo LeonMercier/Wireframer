@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/01 15:23:47 by lemercie         ###   ########.fr       */
+/*   Created: 2024/04/23 10:48:15 by lemercie          #+#    #+#             */
+/*   Updated: 2024/05/07 11:51:45 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "libft.h"
 
-int	read_file(t_map map, char *filename)
+char	*ft_strmapi(char const *s, char (*f) (unsigned int, char))
 {
+	char	*result;
+	int		i;
 
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc == 1)
+	if (!s || !f)
+		return (0);
+	result = ft_strdup(s);
+	if (!result)
+		return (0);
+	i = 0;
+	while (result[i])
 	{
-		ft_printf("Error: Filename missing\n");
-		return (1);
+		result[i] = f(i, result[i]);
+		i++;
 	}
-	if (argc > 2)
-	{
-		ft_printf("Error: Too many arguments\n");
-		return (1);
-	}
-	(void) argv;
-	// one line becomes one int array
-	// => 2D array, formatted as [y][x]
-	// struct to store array, width and heigth
+	return (result);
 }

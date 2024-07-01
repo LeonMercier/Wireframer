@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/01 15:23:47 by lemercie         ###   ########.fr       */
+/*   Created: 2024/04/24 17:26:51 by lemercie          #+#    #+#             */
+/*   Updated: 2024/05/07 12:00:15 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "libft.h"
 
-int	read_file(t_map map, char *filename)
+void	ft_lstclear(t_list **lst, void (*del) (void *))
 {
-
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc == 1)
+	if (!lst || !*lst || !del)
+		return ;
+	if ((*lst)->next)
 	{
-		ft_printf("Error: Filename missing\n");
-		return (1);
+		ft_lstclear(&(*lst)->next, del);
 	}
-	if (argc > 2)
-	{
-		ft_printf("Error: Too many arguments\n");
-		return (1);
-	}
-	(void) argv;
-	// one line becomes one int array
-	// => 2D array, formatted as [y][x]
-	// struct to store array, width and heigth
+	ft_lstdelone(*lst, del);
+	*lst = 0;
 }

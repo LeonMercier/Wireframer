@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/01 15:23:47 by lemercie         ###   ########.fr       */
+/*   Created: 2024/04/16 14:48:13 by lemercie          #+#    #+#             */
+/*   Updated: 2024/05/06 18:00:12 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
-
-int	read_file(t_map map, char *filename)
+#include "libft.h"
+// system version of the function segfaults on null pointer argument, hence 
+// no protection
+size_t	ft_strlen(const char *s)
 {
+	size_t	i;
 
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc == 1)
+	i = 0;
+	while (*s)
 	{
-		ft_printf("Error: Filename missing\n");
-		return (1);
+		i++;
+		s++;
 	}
-	if (argc > 2)
-	{
-		ft_printf("Error: Too many arguments\n");
-		return (1);
-	}
-	(void) argv;
-	// one line becomes one int array
-	// => 2D array, formatted as [y][x]
-	// struct to store array, width and heigth
+	return (i);
 }
