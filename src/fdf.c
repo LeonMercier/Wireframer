@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/02 11:46:29 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:48:22 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ int	getlen_strv(char **strv)
 
 int	add_row_to_map(t_map *map, int len)
 {
+	if (map->arr)
+	{
+		//realloc
+	}
+	
 	map->rows++;
-	//realloc
 }
 
 int	parse_line(t_map *map, char *line)
@@ -87,6 +91,7 @@ int	main(int argc, char **argv)
 		ft_printf("Error: Too many arguments\n");
 		return (1);
 	}
+	map.arr = 0;
 	read_file(&map, argv[1]);
 	// one line becomes one int array
 	// => 2D array, formatted as [y][x]
