@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/03 15:14:21 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:57:07 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	start_graphics(t_map *map)
 	// value of assignement is value of left operand after assignement
 	if (!(mlx = mlx_init(800, 600, "FdF", true)))
 	{
-		ft_printf("Error: failed to init mlx\n");
+		ft_printf("Error: failed mlx_init()\n");
 		return (-1);
 	}
 	mlx_loop_hook(mlx, kbd_hook, mlx);
