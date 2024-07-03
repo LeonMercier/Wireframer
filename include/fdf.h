@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/01 15:17:34 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:29:14 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 typedef struct	s_map
 {
 	int **arr;
-	int	width;
-	int	heigth;
+	int	cols;
+	int	rows;
 }	t_map;
 
 #endif

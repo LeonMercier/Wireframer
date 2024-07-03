@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/02 17:48:22 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:29:33 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,18 @@ int	getlen_strv(char **strv)
 	return (len);
 }
 
-int	add_row_to_map(t_map *map, int len)
+int	add_row_to_map(t_map *map)
 {
+	int	**new_arr;
+
+	new_arr = (int **) malloc(sizeof(int *) * map->rows);
+	if (!new_arr)
+		return (-1);
 	if (map->arr)
-	{
-		//realloc
-	}
-	
-	map->rows++;
+		ft_memmove(new_arr, map->arr, sizeof(int *) * (map->rows - 1));
+	new_arr[map->rows - 1] = (int *) malloc(sizeof(int) * map->cols);
+	map->arr = new_arr;
+	return (0);
 }
 
 int	parse_line(t_map *map, char *line)
@@ -44,8 +48,14 @@ int	parse_line(t_map *map, char *line)
 	strv = ft_split(line, ' ');
 	if (!strv)
 		return (-1);
-	map->cols = getlen_strv(strv);
-	add_row_to_map(map, getlen_strv(strv));
+	map->cols = getlen_strv(strv); // assuming rectangular map, this would 
+								   // really only need to be set once
+	map->rows++;
+	if (add_row_to_map(map) < 0)
+	{
+		//free strv
+		return (-1);
+	}
 	i = 0;
 	while (*strv)
 	{
@@ -53,7 +63,7 @@ int	parse_line(t_map *map, char *line)
 		strv++;
 		i++;
 	}
-
+	return (0);
 }
 
 int	read_file(t_map *map, char *filename)
@@ -77,6 +87,25 @@ int	read_file(t_map *map, char *filename)
 	return (0);
 }
 
+void	print_map(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < map->rows)
+	{
+		j = 0;
+		while (j < map->cols)
+		{
+			ft_printf("%i ", map->arr[i][j]);
+			j++;
+		}
+		ft_printf("\n");
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_map	map;
@@ -93,6 +122,7 @@ int	main(int argc, char **argv)
 	}
 	map.arr = 0;
 	read_file(&map, argv[1]);
+	print_map(&map);
 	// one line becomes one int array
 	// => 2D array, formatted as [y][x]
 	// struct to store array, width and heigth
