@@ -6,7 +6,7 @@
 #    By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/01 11:56:58 by lemercie          #+#    #+#              #
-#    Updated: 2024/07/01 15:14:49 by lemercie         ###   ########.fr        #
+#    Updated: 2024/07/03 12:35:04 by lemercie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT	:= ./lib/libft
 HEADERS	:= -I ./include -I $(LIBMLX)/include -I $(LIBFT)
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 SRCDIR	:= ./src/
-SRCS	:= $(SRCDIR)fdf.c
+SRCS	:= $(SRCDIR)fdf.c $(SRCDIR)ft_atoi_safe2.c
 OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx $(NAME)
