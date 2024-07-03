@@ -6,12 +6,12 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/03 12:37:00 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:57:16 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-#include <stdlib.h> //dbugging
+
 int	getlen_strv(char **strv)
 {
 	int	len;
@@ -59,14 +59,17 @@ int	parse_line(t_map *map, char *line)
 	i = 0;
 	while (*strv) 
 	{
+		err_atoi = 0;
 	//	ft_printf("%s-", *strv);
 	//	ft_printf("%i ",  ft_atoi_safe2(*strv, &err_atoi));
-	//	ft_printf("%i ",  atoi(*strv));
+//		ft_printf("%i ",  atoi(*strv));
 		map->arr[map->rows - 1][i] = ft_atoi_safe2(*strv, &err_atoi);
+		if (err_atoi)
+			ft_printf("atoi error: %i\n", err_atoi);
 		strv++;
 		i++;
 	}
-	ft_printf("\n");
+	//ft_printf("\n");
 	return (0);
 }
 

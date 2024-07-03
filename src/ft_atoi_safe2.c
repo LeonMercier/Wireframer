@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 14:16:46 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/03 12:35:50 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:56:21 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	ft_iswhitespace(const char c)
 {
 	return ((c >= 9 && c <= 13) || c == 32);
 }
-
+/*
 static int	has_garbage(const char *str)
 {
 	while (*str)
@@ -27,7 +27,7 @@ static int	has_garbage(const char *str)
 	}
 	return (0);
 }
-
+*/
 static int	ft_atoi_loop(const char *str, int negative, int *err_atoi)
 {
 	unsigned int	temp;
@@ -44,9 +44,9 @@ static int	ft_atoi_loop(const char *str, int negative, int *err_atoi)
 		if (temp / 10 != result && negative)
 			*err_atoi = 1;
 		if (temp / 10 != result && !negative)
-			*err_atoi = 1;
+			*err_atoi = 2;
 		if ((!negative && temp > INT_MAX) || (negative && temp > one_over_max))
-			*err_atoi = 1;
+			*err_atoi = 3;
 		if (*err_atoi)
 			return (0);
 		result = temp;
@@ -72,10 +72,12 @@ int	ft_atoi_safe2(const char *str, int *err_atoi)
 			return (0);
 		str++;
 	}
+	/*
 	if (has_garbage(str))
 	{
-		*err_atoi = 1;
+		*err_atoi = 4;
 		return (0);
 	}
+	*/
 	return (ft_atoi_loop(str, negative, err_atoi));
 }
