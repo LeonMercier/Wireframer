@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/03 15:57:07 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:06:30 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,36 @@ void	kbd_hook(void *param)
 		mlx_close_window(mlx);
 }
 
+int	set_all_pixels(mlx_image_t *image, uint32_t color)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	while (i < image->width)
+	{
+		j = 0;
+		while (j < image->height)
+		{
+			mlx_put_pixel(image, i, j, color);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	ft_draw(t_map *map, mlx_image_t *image)
+{
+	(void) map;
+	set_all_pixels(image, 0xFF0000FF);
+	return (0);
+}
+
 int	start_graphics(t_map *map)
 {
-	mlx_t	*mlx;
+	mlx_t		*mlx;
+	mlx_image_t	*image;
 
 	// value of assignement is value of left operand after assignement
 	if (!(mlx = mlx_init(800, 600, "FdF", true)))
@@ -51,6 +78,19 @@ int	start_graphics(t_map *map)
 		ft_printf("Error: failed mlx_init()\n");
 		return (-1);
 	}
+	if (!(image = mlx_new_image(mlx, 800, 600)))
+	{
+		mlx_close_window(mlx);
+		ft_printf("Error: failed mlx_new_image()\n");
+		return (-1);
+	}
+	if (mlx_image_to_window(mlx, image, 0, 0) < 0)
+	{
+		mlx_close_window(mlx);
+		ft_printf("Error: failed mlx_image_to_window()\n");
+		return (-1);
+	}
+	ft_draw(map, image);
 	mlx_loop_hook(mlx, kbd_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
