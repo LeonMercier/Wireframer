@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/04 15:40:50 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:08:45 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,63 +105,52 @@ void	draw_map_simple(t_map *map, mlx_image_t *image)
 		x += 10;
 	}
 }
-/*
+
+int		ft_abs(int n)
+{
+	if (n >= 0)
+		return (n);
+	return (-n);
+}
+
+// Bresenham's line algo
 void	draw_line(mlx_image_t *image, t_line line, uint32_t color)
 {
-	unsigned int	a;
-	unsigned int	b;
-	unsigned int	p;
-	unsigned int	x;
-	unsigned int	y;
+	int	dx;
+	int	dy;
+	int				inc_x;
+	int				inc_y;
+	int	err;
+	int	new_err;
 
-	x = line.xa;
-	y = line.ya;
-	while (x <= line.xb)
+	dx = ft_abs(line.xb - line.xa);
+	if (line.xa < line.xb)
+		inc_x = 1;
+	else
+		inc_x = -1;
+	dy = -1 * ft_abs(line.yb - line.ya);
+	if (line.ya < line.yb)
+		inc_y = 1;
+	else
+		inc_y = -1;
+	err = dx + dy;
+	while (line.xa != line.xb && line.ya != line.yb)
 	{
-		a = 2 * (line.yb - line.ya);
-		b = a - 2 * (line.xb - line.xa);
-		p = a - (line.xb - line.xa);
-		if (p < 0)
+		mlx_put_pixel(image, line.xa, line.ya, color);
+		new_err = 2 * err;
+		if (new_err >= dy)
 		{
-			p += a;
+			err += dy;
+			line.xa += inc_x;
 		}
-		else
+		if (new_err <= dx)
 		{
-			y++;
-			p += b;
+			err += dx;
+			line.ya += inc_y;
 		}
-		mlx_put_pixel(image, x, y, color);
-		x++;
 	}
 }
-*/
-// glory to Bresenham
 
-void	draw_line(mlx_image_t *image, t_line line, uint32_t color)
-{
-	int	slope_error;
-	int	new_slope_error;
-	unsigned int	x;
-	unsigned int	y;
-
-	x = line.xa;
-	y = line.ya;
-	slope_error = 2 * (line.yb - line.ya);
-	new_slope_error = slope_error - (line.xb - line.xa);
-	while (x <= line.xb)
-	{
-		mlx_put_pixel(image, x, y, color);
-		new_slope_error += slope_error;
-		if (new_slope_error >= 0)
-		{
-			y++;
-			new_slope_error -= 2 * (line.xb - line.xa);
-		}
-		x++;
-	}
-//	mlx_put_pixel(image, line.xa, line.ya, color);
-//	mlx_put_pixel(image, line.xb, line.yb, color);
-}
 
 int	ft_draw(t_map *map, mlx_image_t *image)
 {
@@ -170,10 +159,10 @@ int	ft_draw(t_map *map, mlx_image_t *image)
 //	draw_square(image, 20, 40, 80, 0xFF0000FF);
 	//draw_map_simple(map, image);
 	t_line line;
-	line.xa = 100;
-	line.ya = 70;
-	line.xb = 400;
-	line.yb = 80;
+	line.xa = 60;
+	line.ya = 600;
+	line.xb = 150;
+	line.yb = 200;
 	draw_line(image, line, 0xFF0000FF);
 	return (0);
 }
