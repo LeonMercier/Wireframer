@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/04 12:49:05 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:12:38 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void	draw_map_simple(t_map *map, mlx_image_t *image)
 		row = 0;
 		while (row < map->rows)
 		{
-			if (map->arr[x][y] > 0)
+			
+			if (map->arr[row][col] > 0)
 			{
 				draw_square(image, 10, x, y, 0xFF0000FF);
 			}
@@ -111,8 +112,6 @@ int	ft_draw(t_map *map, mlx_image_t *image)
 	set_all_pixels(image, 0x000000FF);
 //	draw_square(image, 20, 40, 80, 0xFF0000FF);
 	draw_map_simple(map, image);
-	ft_printf("%i\n", map->arr[1][1]);
-	ft_printf("%i\n", map->arr[3][3]);
 	return (0);
 }
 
