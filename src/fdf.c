@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/04 12:06:30 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:49:05 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,26 @@ void	kbd_hook(void *param)
 		mlx_close_window(mlx);
 }
 
-int	set_all_pixels(mlx_image_t *image, uint32_t color)
+void	draw_square(mlx_image_t *image, unsigned int width, unsigned int x,
+		unsigned int y, uint32_t color)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	while (i < width && i + x < image->width)
+	{
+		j = 0;
+		while (j < width && j + y < image->width)
+		{
+			mlx_put_pixel(image, i + x, j + y, color);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	set_all_pixels(mlx_image_t *image, uint32_t color)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -57,13 +76,43 @@ int	set_all_pixels(mlx_image_t *image, uint32_t color)
 		}
 		i++;
 	}
-	return (0);
+}
+
+void	draw_map_simple(t_map *map, mlx_image_t *image)
+{
+	unsigned int	x;
+	unsigned int	y;
+	int				col;
+	int				row;
+
+	x = 0;
+	col = 0;
+	while (col < map->cols)
+	{
+		y = 0;
+		row = 0;
+		while (row < map->rows)
+		{
+			if (map->arr[x][y] > 0)
+			{
+				draw_square(image, 10, x, y, 0xFF0000FF);
+			}
+			row++;
+			y += 10;
+		}
+		col++;
+		x += 10;
+	}
 }
 
 int	ft_draw(t_map *map, mlx_image_t *image)
 {
 	(void) map;
-	set_all_pixels(image, 0xFF0000FF);
+	set_all_pixels(image, 0x000000FF);
+//	draw_square(image, 20, 40, 80, 0xFF0000FF);
+	draw_map_simple(map, image);
+	ft_printf("%i\n", map->arr[1][1]);
+	ft_printf("%i\n", map->arr[3][3]);
 	return (0);
 }
 
