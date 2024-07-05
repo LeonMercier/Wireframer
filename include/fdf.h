@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/04 17:34:02 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/05 15:07:58 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 # define FDF_H
 # include "../lib/libft/libft.h"
 # include "../lib/MLX42/include/MLX42/MLX42.h"
+# include <math.h>
+
+typedef struct	s_point
+{
+	double	screen_x;
+	double	screen_y;
+	int	depth;
+}	t_point;
 
 typedef struct	s_map
 {
-	int **arr;
+	t_point **arr;
 	int	cols;
 	int	rows;
 }	t_map;

@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:31:32 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/04 17:35:27 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/05 17:34:39 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	draw_line(mlx_image_t *image, t_line line, uint32_t color)
 	else
 		inc_y = -1;
 	err = dx + dy;
-	while (line.xa != line.xb && line.ya != line.yb)
+	while (line.xa != line.xb || line.ya != line.yb)
 	{
 		mlx_put_pixel(image, line.xa, line.ya, color);
 		new_err = 2 * err;

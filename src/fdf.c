@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/04 17:42:37 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/05 15:11:38 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_map(t_map *map)
 		j = 0;
 		while (j < map->cols)
 		{
-			ft_printf("%i ", map->arr[i][j]);
+			ft_printf("%i ", map->arr[i][j].depth);
 			j++;
 		}
 		ft_printf("\n");
@@ -44,18 +44,37 @@ int	ft_draw(t_map *map, mlx_image_t *image)
 {
 	(void) map;
 	set_all_pixels(image, 0x000000FF);
-//	draw_square(image, 20, 40, 80, 0xFF0000FF);
-	//draw_map_simple(map, image);
 	t_line line;
-	line = (t_line){.xa = 60, .ya = 600, .xb = 150, .yb = 200};
-	/*
-	line.xa = 60;
-	line.ya = 600;
-	line.xb = 150;
-	line.yb = 200;
-	*/
+	line = (t_line){.xa = 20, .ya = 30, .xb = 150, .yb = 200};
 	draw_line(image, line, 0xFF0000FF);
 	return (0);
+}
+
+void	to_isometric(t_map *map)
+{
+	int	i;
+	int	j;
+	double	angle;
+
+	i = 0;
+	angle = 0.52; // 30 deg in rads
+	while (i < map->cols)
+	{
+		j = 0;
+		while (j < map->rows)
+		{
+			map->arr[i][j].screen_x =
+				(j * cos(angle)) +
+				 (i * cos(angle + 2.09)) + //120 deg in rads
+				 (map->arr[i][j].depth * cos(angle - 2.09));
+			map->arr[i][j].screen_y =
+				(j * sin(angle)) +
+				 (i * sin(angle + 2.09)) + //120 deg in rads
+				 (map->arr[i][j].depth * sin(angle - 2.09));
+			j++;
+		}
+		i++;
+	}
 }
 
 int	start_graphics(t_map *map)
@@ -82,6 +101,7 @@ int	start_graphics(t_map *map)
 		ft_printf("Error: failed mlx_image_to_window()\n");
 		return (-1);
 	}
+//	to_isometric(map);
 	ft_draw(map, image);
 	mlx_loop_hook(mlx, kbd_hook, mlx);
 	mlx_loop(mlx);
@@ -90,7 +110,11 @@ int	start_graphics(t_map *map)
 	return (0);
 }
 
-
+// store a list of points
+// each point has 3D coords
+// and 2D coords
+// calculate 2D coords from  3D coords
+// then we can still see which points to connect based on the 3D coords
 int	main(int argc, char **argv)
 {
 	t_map	map;
@@ -108,7 +132,7 @@ int	main(int argc, char **argv)
 	map.arr = 0;
 	read_file(&map, argv[1]);
 	print_map(&map);
-	start_graphics(&map);
+//	start_graphics(&map);
 	// one line becomes one int array
 	// => 2D array, formatted as [y][x]
 	// struct to store array, width and heigth

@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/03 14:41:09 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/05 17:50:06 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ static int	getlen_strv(char **strv)
 
 static int	add_row_to_map(t_map *map)
 {
-	int	**new_arr;
+	t_point	**new_arr;
 
-	new_arr = (int **) malloc(sizeof(int *) * map->rows);
+	new_arr = (t_point **) malloc(sizeof(t_point *) * map->rows);
 	if (!new_arr)
 		return (-1);
 	if (map->arr)
-		ft_memmove(new_arr, map->arr, sizeof(int *) * (map->rows));
-	new_arr[map->rows - 1] = (int *) malloc(sizeof(int) * map->cols);
+		ft_memmove(new_arr, map->arr, sizeof(t_point *) * (map->rows));
+	new_arr[map->rows - 1] = (t_point *) malloc(sizeof(t_point *) * map->cols);
 	map->arr = new_arr;
 	return (0);
 }
@@ -63,7 +63,10 @@ static int	parse_line(t_map *map, char *line)
 	//	ft_printf("%s-", *strv);
 	//	ft_printf("%i ",  ft_atoi_safe2(*strv, &err_atoi));
 //		ft_printf("%i ",  atoi(*strv));
-		map->arr[map->rows - 1][i] = ft_atoi_safe2(*strv, &err_atoi);
+		t_point	*point;
+		point = (t_point *) malloc(sizeof(t_point));
+		point->depth = ft_atoi_safe2(*strv, &err_atoi);
+		map->arr[map->rows - 1][i] = point;
 		if (err_atoi)
 			ft_printf("atoi error: %i\n", err_atoi);
 		strv++;
