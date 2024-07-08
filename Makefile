@@ -6,12 +6,13 @@
 #    By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/01 11:56:58 by lemercie          #+#    #+#              #
-#    Updated: 2024/07/04 17:34:31 by lemercie         ###   ########.fr        #
+#    Updated: 2024/07/08 12:57:54 by lemercie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= fdf
-CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code -Ofast
+#CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code
 LIBMLX	:= ./lib/MLX42
 LIBFT	:= ./lib/libft
 

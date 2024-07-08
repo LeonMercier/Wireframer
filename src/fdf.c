@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/05 15:11:38 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:24:52 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	print_map(t_map *map)
 		j = 0;
 		while (j < map->cols)
 		{
-			ft_printf("%i ", map->arr[i][j].depth);
+	//		ft_printf("%i ", map->arr[i][j].depth);
+			ft_printf("euh\n");
 			j++;
 		}
 		ft_printf("\n");
@@ -49,7 +50,7 @@ int	ft_draw(t_map *map, mlx_image_t *image)
 	draw_line(image, line, 0xFF0000FF);
 	return (0);
 }
-
+/*
 void	to_isometric(t_map *map)
 {
 	int	i;
@@ -76,7 +77,7 @@ void	to_isometric(t_map *map)
 		i++;
 	}
 }
-
+*/
 int	start_graphics(t_map *map)
 {
 	mlx_t		*mlx;
@@ -130,6 +131,8 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	map.arr = 0;
+	map.rows = 0;
+	map.cols = 0;
 	read_file(&map, argv[1]);
 	print_map(&map);
 //	start_graphics(&map);

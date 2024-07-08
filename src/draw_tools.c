@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:31:32 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/05 17:34:39 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:31:08 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	set_all_pixels(mlx_image_t *image, uint32_t color)
 		i++;
 	}
 }
-
+/*
 void	draw_map_simple(t_map *map, mlx_image_t *image)
 {
 	unsigned int	x;
@@ -76,7 +76,7 @@ void	draw_map_simple(t_map *map, mlx_image_t *image)
 		x += 10;
 	}
 }
-
+*/
 static int		ft_abs(int n)
 {
 	if (n >= 0)
