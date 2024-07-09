@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/08 12:24:52 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:36:22 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	print_map(t_map *map)
 		j = 0;
 		while (j < map->cols)
 		{
-	//		ft_printf("%i ", map->arr[i][j].depth);
-			ft_printf("euh\n");
+			ft_printf("%i ", map->arr[i][j].depth);
 			j++;
 		}
 		ft_printf("\n");

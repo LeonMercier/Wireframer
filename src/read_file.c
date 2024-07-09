@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/09 12:24:05 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:41:43 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,69 +24,38 @@ static int	getlen_strv(char **strv)
 	}
 	return (len);
 }
-/*
-static int	add_row_to_map(t_map *map)
-{
-	t_point	*new_arr;
-
-	new_arr = (t_point *) malloc(sizeof(t_point *) *
-			((map->rows + 1) * map->cols));
-	if (!new_arr)
-		return (-1);
-	if (map->arr)
-		ft_memmove(new_arr, map->arr, sizeof(t_point *) *
-				(map->rows * map->cols));
-	map->arr = new_arr;
-	map->rows++;
-	return (0);
-}
-*/
-t_point	*get_point(t_map *map, int x, int y)
-{
-	ft_printf("X: %i, Y: %i\n", x, y);
-	return (&map->arr[(map->cols * y) + x]);
-}
-
-static int	add_row_in_map(t_map *map)
-{
-	t_point *new_arr;
-
-	new_arr = (t_point *) malloc(sizeof(t_point *) * ((map->rows + 1) * map->cols));
-	if (map->rows > 0)
-	{
-		ft_memmove(new_arr, map->arr, sizeof(t_point *) * (map->rows * map->cols));
-	}
-	map->arr = new_arr;
-	map->rows++;
-	return (0);
-}
 
 static int	parse_line(t_map *map, char *line)
 {
 	int		err_atoi;
 	char	**strv;
 	int		i;
+	t_point **new_arr;
 
 	strv = ft_split(line, ' ');
 	if (!strv)
 		return (-1);
 	map->cols = getlen_strv(strv); // assuming rectangular map, this would 
 								   // really only need to be set once
-	add_row_in_map(map);
+	map->rows++;
+	new_arr = malloc(map->rows  * sizeof(t_point *));
+	if (map->arr)
+		ft_memmove(new_arr, map->arr, sizeof(t_point *) * (map->rows - 1));
+	map->arr = new_arr;
+	map->arr[map->rows - 1] = malloc(map->cols * sizeof(t_point));
 	i = 0;
 	while (*strv) 
 	{
+		// TODO> are the two lines here needed?
+		map->arr[map->rows - 1][i].screen_x = 0;
+		map->arr[map->rows - 1][i].screen_y = 0;
+		map->arr[map->rows - 1][i].depth = ft_atoi_safe2(*strv, &err_atoi);
 		err_atoi = 0;
-		get_point(map, 0, 0)->screen_x = 0;
-		get_point(map, 0, 0)->screen_y = 0;
-		get_point(map, 0, 0)->depth = ft_atoi_safe2(*strv, &err_atoi);
-		ft_printf("yay\n");
 		if (err_atoi)
 			ft_printf("atoi error: %i\n", err_atoi);
 		strv++;
 		i++;
 	}
-	//ft_printf("\n");
 	return (0);
 }
 
@@ -102,14 +71,13 @@ int	read_file(t_map *map, char *filename)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-//		ft_printf("%s\n", line);
 		if (parse_line(map, line) < 0)
 		{
 			ft_printf("Error in parse_line()\n");
 			free(line);
 			return (-1);
 		}
-		//free(line);
+		free(line);
 	}
 	close(fd);
 	return (0);

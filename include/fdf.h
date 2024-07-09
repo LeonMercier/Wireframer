@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/09 12:13:50 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:19:11 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct	s_point
 
 typedef struct	s_map
 {
-	t_point *arr;
+	t_point **arr;
 	int	cols;
 	int	rows;
 }	t_map;
