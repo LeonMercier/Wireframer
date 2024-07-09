@@ -6,31 +6,49 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/09 14:36:22 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:34:10 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-
+#include <stdio.h> //debugging
 void	print_map(t_map *map)
 {
-	int	i;
-	int	j;
+	int	y;
+	int	x;
 
-	i = 0;
-	while (i < map->rows)
+	y = 0;
+	while (y < map->rows)
 	{
-		j = 0;
-		while (j < map->cols)
+		x = 0;
+		while (x < map->cols)
 		{
-			ft_printf("%i ", map->arr[i][j].depth);
-			j++;
+			printf("%i ", map->arr[y][x].depth);
+			x++;
 		}
-		ft_printf("\n");
-		i++;
+		printf("\n");
+		y++;
 	}
 }
 
+void	print_map_2d(t_map *map)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < map->rows)
+	{
+		x = 0;
+		while (x < map->cols)
+		{
+			printf("%.1f,%.1f ", map->arr[y][x].screen_x, map->arr[y][x].screen_y);
+			x++;
+		}
+		printf("\n");
+		y++;
+	}
+}
 void	kbd_hook(void *param)
 {
 	mlx_t	*mlx;
@@ -49,34 +67,34 @@ int	ft_draw(t_map *map, mlx_image_t *image)
 	draw_line(image, line, 0xFF0000FF);
 	return (0);
 }
-/*
+
 void	to_isometric(t_map *map)
 {
-	int	i;
-	int	j;
+	int	y;
+	int	x;
 	double	angle;
 
-	i = 0;
+	y = 0;
 	angle = 0.52; // 30 deg in rads
-	while (i < map->cols)
+	while (y < map->rows)
 	{
-		j = 0;
-		while (j < map->rows)
+		x = 0;
+		while (x < map->cols)
 		{
-			map->arr[i][j].screen_x =
-				(j * cos(angle)) +
-				 (i * cos(angle + 2.09)) + //120 deg in rads
-				 (map->arr[i][j].depth * cos(angle - 2.09));
-			map->arr[i][j].screen_y =
-				(j * sin(angle)) +
-				 (i * sin(angle + 2.09)) + //120 deg in rads
-				 (map->arr[i][j].depth * sin(angle - 2.09));
-			j++;
+			map->arr[y][x].screen_x =
+				(x * cos(angle)) +
+				 (y * cos(angle + 2.09)) + //120 deg in rads
+				 (map->arr[y][x].depth * cos(angle - 2.09));
+			map->arr[y][x].screen_y =
+				(x * sin(angle)) +
+				 (y * sin(angle + 2.09)) + //120 deg in rads
+				 (map->arr[y][x].depth * sin(angle - 2.09));
+			x++;
 		}
-		i++;
+		y++;
 	}
 }
-*/
+
 int	start_graphics(t_map *map)
 {
 	mlx_t		*mlx;
@@ -134,6 +152,8 @@ int	main(int argc, char **argv)
 	map.cols = 0;
 	read_file(&map, argv[1]);
 	print_map(&map);
+	to_isometric(&map);
+	print_map_2d(&map);
 //	start_graphics(&map);
 	// one line becomes one int array
 	// => 2D array, formatted as [y][x]
