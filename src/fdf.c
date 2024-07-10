@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/10 15:56:29 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:19:22 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,11 +155,6 @@ int	main(int argc, char **argv)
 	to_isometric(&map);
 	print_map_2d(&map);
 	start_graphics(&map);
-
-
-
-
-
 	// one line becomes one int array
 	// => 2D array, formatted as [y][x]
 	// struct to store array, width and heigth

@@ -6,7 +6,7 @@
 #    By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/01 11:56:58 by lemercie          #+#    #+#              #
-#    Updated: 2024/07/10 15:55:25 by lemercie         ###   ########.fr        #
+#    Updated: 2024/07/10 16:18:55 by lemercie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS	:= $(SRCDIR)fdf.c $(SRCDIR)ft_atoi_safe2.c $(SRCDIR)read_file.c \
 		   $(SRCDIR)draw_tools.c
 OBJS	:= ${SRCS:.c=.o}
 
-all: libmlx $(NAME)
+all: libft libmlx $(NAME)
 
 .libmlx_cloned: 
 	git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX)
@@ -32,21 +32,22 @@ all: libmlx $(NAME)
 
 libmlx: .libmlx_cloned
 
-#libmlx:
-#	if [ ! -d "$(LIBMLX)" ]; then \
-#		git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX); \
-#		cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4; \
-#	fi
+.libft_cloned: 
+	git clone git@github.com:LeonMercier/libft_plus.git $(LIBFT)
+	make -C $(LIBFT)
+	touch .libft_cloned
+
+libft: .libft_cloned
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) 
 
 $(NAME): $(OBJS)
-	make -C ./lib/libft
 	$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(HEADERS) -o $(NAME)
 
 clean:
 	rm .libmlx_cloned
+	rm .libft_cloned
 	rm -rf $(OBJS)
 	rm -rf $(LIBMLX)/build
 
