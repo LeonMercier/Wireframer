@@ -6,7 +6,7 @@
 #    By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/01 11:56:58 by lemercie          #+#    #+#              #
-#    Updated: 2024/07/10 15:16:25 by lemercie         ###   ########.fr        #
+#    Updated: 2024/07/10 15:55:25 by lemercie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,11 +25,18 @@ OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx $(NAME)
 
-libmlx:
-	if [ ! -d "$(LIBMLX)" ]; then \
-		git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX); \
-		cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4; \
-	fi
+.libmlx_cloned: 
+	git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX)
+	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+	touch .libmlx_cloned
+
+libmlx: .libmlx_cloned
+
+#libmlx:
+#	if [ ! -d "$(LIBMLX)" ]; then \
+#		git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX); \
+#		cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4; \
+#	fi
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) 
@@ -39,6 +46,7 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(HEADERS) -o $(NAME)
 
 clean:
+	rm .libmlx_cloned
 	rm -rf $(OBJS)
 	rm -rf $(LIBMLX)/build
 
