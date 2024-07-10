@@ -6,7 +6,7 @@
 #    By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/01 11:56:58 by lemercie          #+#    #+#              #
-#    Updated: 2024/07/08 12:57:54 by lemercie         ###   ########.fr        #
+#    Updated: 2024/07/10 15:16:25 by lemercie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,10 @@ OBJS	:= ${SRCS:.c=.o}
 all: libmlx $(NAME)
 
 libmlx:
-	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+	if [ ! -d "$(LIBMLX)" ]; then \
+		git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX); \
+		cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4; \
+	fi
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) 
