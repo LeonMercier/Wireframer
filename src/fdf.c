@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/10 16:19:22 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/15 13:23:11 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,57 @@ void	to_isometric(t_map *map)
 	}
 }
 
+void	get_min_coords(t_map *map, t_point *min)
+{
+	int	y;
+	int	x;
+
+	min->screen_x = map->arr[0][0].screen_x;
+	min->screen_y = map->arr[0][0].screen_y;
+	y = 0;
+	while (y < map->rows)
+	{
+		x = 0;
+		while (x < map->cols)
+		{
+			if (map->arr[y][x].screen_x < min->screen_x)
+				min->screen_x = map->arr[y][x].screen_x;
+			if (map->arr[y][x].screen_y < min->screen_y)
+				min->screen_y = map->arr[y][x].screen_y;
+			x++;
+		}
+		y++;
+	}	
+}
+
+void	shift_coords(t_map *map, double yshift, double xshift)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < map->rows)
+	{
+		x = 0;
+		while (x < map->cols)
+		{
+			map->arr[y][x].screen_x += xshift;
+			map->arr[y][x].screen_y += yshift;
+			x++;
+		}
+		y++;
+	}
+}
+
+void	shift_top_left(t_map *map)
+{
+	t_point	min;
+
+	get_min_coords(map, &min);
+	shift_coords(map, - min.screen_y, - min.screen_x);
+}
+	
+
 int	start_graphics(t_map *map)
 {
 	mlx_t		*mlx;
@@ -119,7 +170,6 @@ int	start_graphics(t_map *map)
 		ft_printf("Error: failed mlx_image_to_window()\n");
 		return (-1);
 	}
-//	to_isometric(map);
 	ft_draw(map, image);
 	mlx_loop_hook(mlx, kbd_hook, mlx);
 	mlx_loop(mlx);
@@ -153,6 +203,8 @@ int	main(int argc, char **argv)
 	read_file(&map, argv[1]);
 	print_map(&map);
 	to_isometric(&map);
+	print_map_2d(&map);
+	shift_top_left(&map);
 	print_map_2d(&map);
 	start_graphics(&map);
 	// one line becomes one int array
