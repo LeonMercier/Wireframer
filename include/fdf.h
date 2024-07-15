@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/15 14:14:20 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:54:53 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,15 @@ int	read_file(t_map *map, char *filename);
 // draw_tools.c
 void	set_all_pixels(mlx_image_t *image, uint32_t color);
 void	draw_line(mlx_image_t *image, t_line line, uint32_t color);
-
+// connect_points.c
+void	connect_points(t_map *map, mlx_image_t *image);
+// to_isometric.c
+void	to_isometric(t_map *map);
+// shift_top_left.c
+void	shift_top_left(t_map *map);
+// ft_zoom.c
+void	ft_zoom(t_map *map, double zoomfactor);
+// debug.c
+void	print_map(t_map *map);
+void	print_map_2d(t_map *map);
 #endif
