@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:31:32 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/08 11:31:08 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:13:49 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,3 @@ void	draw_line(mlx_image_t *image, t_line line, uint32_t color)
 		}
 	}
 }
-
-
-

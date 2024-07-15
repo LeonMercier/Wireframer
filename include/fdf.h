@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/09 14:19:11 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:14:20 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ typedef struct	s_map
 
 typedef struct	s_line
 {
-	unsigned int	xa;
-	unsigned int	ya;
-	unsigned int	xb;
-	unsigned int	yb;
+	int	xa;
+	int	ya;
+	int	xb;
+	int	yb;
 }	t_line;
 
 int	ft_atoi_safe2(const char *str, int *err_atoi);

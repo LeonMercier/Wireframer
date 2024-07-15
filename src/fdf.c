@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/15 13:23:11 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:30:48 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,45 @@ void	kbd_hook(void *param)
 		mlx_close_window(mlx);
 }
 
+void	connect_points(t_map *map, mlx_image_t *image)
+{
+	int	y;
+	int	x;
+	t_line	line;
+
+//	(void) image;
+	y = 0;
+	while (y < map->rows - 1)
+	{
+		x = 0;
+		while (x < map->cols - 1)
+		{
+			line.xa = lround(map->arr[y][x].screen_x);
+			line.ya = lround(map->arr[y][x].screen_y);
+			line.xb = lround(map->arr[y][x + 1].screen_x);
+			line.yb = lround(map->arr[y][x + 1].screen_y);
+//			printf("%f, %f, %f, %f\n", line.xa, line.ya, line.xb, line.yb);
+			draw_line(image, line, 0xFF0000FF);
+			line.xa = lround(map->arr[y][x].screen_x);
+			line.ya = lround(map->arr[y][x].screen_y);
+			line.xb = lround(map->arr[y + 1][x].screen_x);
+			line.yb = lround(map->arr[y + 1][x].screen_y);
+//			printf("%f, %f, %f, %f\n", line.xa, line.ya, line.xb, line.yb);
+			draw_line(image, line, 0xFF0000FF);
+			x++;
+		}
+		y++;
+	}
+}
+
 int	ft_draw(t_map *map, mlx_image_t *image)
 {
-	(void) map;
+//	(void) map;
 	set_all_pixels(image, 0x000000FF);
-	t_line line;
-	line = (t_line){.xa = 20, .ya = 30, .xb = 150, .yb = 200};
-	draw_line(image, line, 0xFF0000FF);
+//	t_line line;
+//	line = (t_line){.xa = 20, .ya = 30, .xb = 150, .yb = 200};
+//	draw_line(image, line, 0xFF0000FF);
+	connect_points(map, image);
 	return (0);
 }
 
@@ -89,6 +121,24 @@ void	to_isometric(t_map *map)
 				(x * sin(angle)) +
 				 (y * sin(angle + 2.09)) + //120 deg in rads
 				 (map->arr[y][x].depth * sin(angle - 2.09));
+			x++;
+		}
+		y++;
+	}
+}
+void	ft_zoom(t_map *map, double zoomfactor)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < map->rows)
+	{
+		x = 0;
+		while (x < map->cols)
+		{
+			map->arr[y][x].screen_x *= zoomfactor;
+			map->arr[y][x].screen_y *= zoomfactor;
 			x++;
 		}
 		y++;
@@ -203,6 +253,8 @@ int	main(int argc, char **argv)
 	read_file(&map, argv[1]);
 	print_map(&map);
 	to_isometric(&map);
+	print_map_2d(&map);
+	ft_zoom(&map, 20);
 	print_map_2d(&map);
 	shift_top_left(&map);
 	print_map_2d(&map);
