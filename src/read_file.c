@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/09 14:41:43 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:45:06 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	parse_line(t_map *map, char *line)
 		// TODO> are the two lines here needed?
 		map->arr[map->rows - 1][i].screen_x = 0;
 		map->arr[map->rows - 1][i].screen_y = 0;
-		map->arr[map->rows - 1][i].depth = ft_atoi_safe2(*strv, &err_atoi);
+		map->arr[map->rows - 1][i].depth =  ft_atoi_safe2(*strv, &err_atoi);
 		err_atoi = 0;
 		if (err_atoi)
 			ft_printf("atoi error: %i\n", err_atoi);

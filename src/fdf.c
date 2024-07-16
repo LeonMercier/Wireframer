@@ -6,11 +6,12 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/16 11:13:57 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:40:01 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
+#include <stdio.h> //debugging
 
 void	kbd_hook(void *param)
 {
@@ -32,18 +33,18 @@ int	ft_draw(t_map *map, mlx_image_t *image)
 	return (0);
 }
 
-int	start_graphics(t_map *map)
+int	start_graphics(t_map *map, int image_width, int image_heigth)
 {
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 
-	mlx = mlx_init(800, 600, "FdF", true);
+	mlx = mlx_init(image_width, image_heigth, "FdF", true);
 	if (!mlx)
 	{
 		ft_printf("Error: failed mlx_init()\n");
 		return (-1);
 	}
-	image = mlx_new_image(mlx, 800, 600);
+	image = mlx_new_image(mlx, image_width, image_heigth);
 	if (!image)
 	{
 		mlx_close_window(mlx);
@@ -84,6 +85,25 @@ void	flatten(t_map *map, double flattenfactor)
 	}
 }
 
+// handle both zooming in and zooming out
+void	fit_to_image(t_map *map, int image_width, int image_heigth)
+{
+	// diff between min and max
+	double	dy;
+	double	dx;
+	t_point	min;
+	t_point	max;
+	double	zoomfactor_y;
+	double	zoomfactor_x;
+
+	get_min_coords(map, &min);
+	get_max_coords(map, &max);
+	dy = fabs(max.screen_y - min.screen_y);
+	dx = fabs(max.screen_x - min.screen_x);
+	zoomfactor_y = dy / image_heigth;
+	zoomfactor_x = dx / image_width;
+	ft_zoom(map, fmin(1 / zoomfactor_y, 1 / zoomfactor_x));
+}
 // store a list of points
 // each point has 3D coords
 // and 2D coords
@@ -91,6 +111,8 @@ void	flatten(t_map *map, double flattenfactor)
 // then we can still see which points to connect based on the 3D coords
 int	main(int argc, char **argv)
 {
+	int	image_width;
+	int	image_heigth;
 	t_map	map;
 
 	if (argc == 1)
@@ -106,17 +128,26 @@ int	main(int argc, char **argv)
 	map.arr = 0;
 	map.rows = 0;
 	map.cols = 0;
+	image_width = 1500;
+	image_heigth = 800;
 	read_file(&map, argv[1]);
+	printf("initial map\n");
 	print_map(&map);
-	flatten(&map, 8);
+	printf("\n");
+	printf("flatened map\n");
+	flatten(&map, 5);
 	print_map(&map);
+	printf("isometric map\n");
 	to_isometric(&map);
 	print_map_2d(&map);
-	ft_zoom(&map, 20);
+	
+//	ft_zoom(&map, 20);
+	fit_to_image(&map, image_width, image_heigth);
 	print_map_2d(&map);
 	shift_top_left(&map);
+	//TODO zoom out until whole map fits the screen
 	print_map_2d(&map);
-	start_graphics(&map);
+	start_graphics(&map, image_width, image_heigth);
 	// one line becomes one int array
 	// => 2D array, formatted as [y][x]
 	// struct to store array, width and heigth

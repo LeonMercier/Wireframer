@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/16 11:08:44 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:54:32 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ void	to_isometric(t_map *map);
 void	shift_top_left(t_map *map);
 // ft_zoom.c
 void	ft_zoom(t_map *map, double zoomfactor);
+// map_tools.c
+void	get_min_coords(t_map *map, t_point *min);
+void	get_max_coords(t_map *map, t_point *max);
 // debug.c
 void	print_map(t_map *map);
 void	print_map_2d(t_map *map);

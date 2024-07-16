@@ -6,7 +6,7 @@
 #    By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/01 11:56:58 by lemercie          #+#    #+#              #
-#    Updated: 2024/07/15 15:01:14 by lemercie         ###   ########.fr        #
+#    Updated: 2024/07/16 16:54:51 by lemercie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 SRCDIR	:= ./src/
 SRCS	:= $(addprefix $(SRCDIR),fdf.c ft_atoi_safe2.c read_file.c \
 		   draw_tools.c connect_points.c ft_zoom.c shift_top_left.c \
-		   to_isometric.c debug.c)
+		   to_isometric.c map_tools.c debug.c)
 OBJS	:= ${SRCS:.c=.o}
 
 all: libft libmlx $(NAME)
@@ -47,10 +47,10 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(HEADERS) -o $(NAME)
 
 clean:
-	rm .libmlx_cloned
-	rm .libft_cloned
+	#rm .libmlx_cloned
+	#rm .libft_cloned
 	rm -rf $(OBJS)
-	rm -rf $(LIBMLX)/build
+	#rm -rf $(LIBMLX)/build
 
 fclean: clean
 	rm -rf $(NAME)

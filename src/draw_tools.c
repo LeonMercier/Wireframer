@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:31:32 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/15 14:13:49 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:50:03 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,6 @@ void	draw_map_simple(t_map *map, mlx_image_t *image)
 	}
 }
 */
-static int		ft_abs(int n)
-{
-	if (n >= 0)
-		return (n);
-	return (-n);
-}
 
 // Bresenham's line algo
 void	draw_line(mlx_image_t *image, t_line line, uint32_t color)
@@ -94,12 +88,12 @@ void	draw_line(mlx_image_t *image, t_line line, uint32_t color)
 	int	err;
 	int	new_err;
 
-	dx = ft_abs(line.xb - line.xa);
+	dx = abs(line.xb - line.xa);
 	if (line.xa < line.xb)
 		inc_x = 1;
 	else
 		inc_x = -1;
-	dy = -1 * ft_abs(line.yb - line.ya);
+	dy = -1 * abs(line.yb - line.ya);
 	if (line.ya < line.yb)
 		inc_y = 1;
 	else
