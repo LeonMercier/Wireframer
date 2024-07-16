@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/15 14:54:53 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:08:44 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct	s_point
 {
 	double	screen_x;
 	double	screen_y;
-	int	depth;
+	double	depth;
 }	t_point;
 
 typedef struct	s_map

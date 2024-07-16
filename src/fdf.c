@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/15 14:56:02 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:13:57 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,26 @@ int	start_graphics(t_map *map)
 	return (0);
 }
 
+// TODO: how about a function that iterates over the whole map and applies a
+// function passed to it to every t_point?
+void	flatten(t_map *map, double flattenfactor)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < map->rows)
+	{
+		x = 0;
+		while (x < map->cols)
+		{
+			map->arr[y][x].depth /= flattenfactor;
+			x++;
+		}
+		y++;
+	}
+}
+
 // store a list of points
 // each point has 3D coords
 // and 2D coords
@@ -87,6 +107,8 @@ int	main(int argc, char **argv)
 	map.rows = 0;
 	map.cols = 0;
 	read_file(&map, argv[1]);
+	print_map(&map);
+	flatten(&map, 8);
 	print_map(&map);
 	to_isometric(&map);
 	print_map_2d(&map);
