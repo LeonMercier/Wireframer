@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/16 18:40:01 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:08:19 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	fit_to_image(t_map *map, int image_width, int image_heigth)
 // and 2D coords
 // calculate 2D coords from  3D coords
 // then we can still see which points to connect based on the 3D coords
+// TODO: take advantage of image size being stored in image var
 int	main(int argc, char **argv)
 {
 	int	image_width;
@@ -145,7 +146,6 @@ int	main(int argc, char **argv)
 	fit_to_image(&map, image_width, image_heigth);
 	print_map_2d(&map);
 	shift_top_left(&map);
-	//TODO zoom out until whole map fits the screen
 	print_map_2d(&map);
 	start_graphics(&map, image_width, image_heigth);
 	// one line becomes one int array
