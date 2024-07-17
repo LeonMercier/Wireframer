@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/16 11:45:06 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:43:06 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,65 @@ static int	getlen_strv(char **strv)
 	return (len);
 }
 
+int	hexchar_to_int(char c)
+{
+	const char	upper[] = {"0123456789ABCDEF"};
+	const char	lower[] = {"0123456789abcdef"};
+	int			i;
+
+	i = 0;
+	while (i < 16)
+	{
+		if (c == lower[i] || c == upper[i])
+			return (i);
+		i++;
+	}
+	ft_printf("Error in hexchar_to_int(): %c \n", c);
+	return (0);
+}
+
+// shifting to the left and adding 255 adds the alpha channel at full opacity
+int	parse_color(char *str)
+{
+	int	color;
+
+	color = 0;
+	str += 2;
+	while (*str)
+	{
+		color = (color * 16) + hexchar_to_int(*str);
+		str++;
+	}
+	color = color << 8;
+	color += 255;
+	return (color);
+}
+
+// TODO: is it necessary to initialize screen_x and screen_y here?
+// the second call to ft_split get rid of the newlines of the last column
+static void	parse_point(t_map *map, char *point, int y, int x)
+{
+	char	**strv;
+	int		err_atoi;
+
+	strv = ft_split(point, ',');	//TODO fail check
+	err_atoi = 0;
+	map->arr[y][x].screen_x = 0;
+	map->arr[y][x].screen_y = 0;
+	map->arr[y][x].depth =  ft_atoi_safe2(strv[0], &err_atoi);
+	if (err_atoi)
+		ft_printf("atoi error: %i\n", err_atoi);
+	if (strv[1])
+	{
+//		ft_printf("%s\n", strv[1]);
+		map->arr[y][x].color = parse_color(ft_split(strv[1], '\n')[0]); //TODO
+	}
+	else
+		map->arr[y][x].color = 0xFF0000FF;
+}
+
 static int	parse_line(t_map *map, char *line)
 {
-	int		err_atoi;
 	char	**strv;
 	int		i;
 	t_point **new_arr;
@@ -46,13 +102,7 @@ static int	parse_line(t_map *map, char *line)
 	i = 0;
 	while (*strv) 
 	{
-		// TODO> are the two lines here needed?
-		map->arr[map->rows - 1][i].screen_x = 0;
-		map->arr[map->rows - 1][i].screen_y = 0;
-		map->arr[map->rows - 1][i].depth =  ft_atoi_safe2(*strv, &err_atoi);
-		err_atoi = 0;
-		if (err_atoi)
-			ft_printf("atoi error: %i\n", err_atoi);
+		parse_point(map, *strv, map->rows - 1, i);
 		strv++;
 		i++;
 	}

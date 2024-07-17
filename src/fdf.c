@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/16 19:08:19 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:47:10 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,24 +129,24 @@ int	main(int argc, char **argv)
 	map.arr = 0;
 	map.rows = 0;
 	map.cols = 0;
-	image_width = 1500;
-	image_heigth = 800;
+	image_width = 1000;
+	image_heigth = 1000;
 	read_file(&map, argv[1]);
 	printf("initial map\n");
-	print_map(&map);
+	//print_map(&map);
 	printf("\n");
 	printf("flatened map\n");
 	flatten(&map, 5);
-	print_map(&map);
+	//print_map(&map);
 	printf("isometric map\n");
 	to_isometric(&map);
-	print_map_2d(&map);
+	//print_map_2d(&map);
 	
 //	ft_zoom(&map, 20);
 	fit_to_image(&map, image_width, image_heigth);
-	print_map_2d(&map);
+	//print_map_2d(&map);
 	shift_top_left(&map);
-	print_map_2d(&map);
+	//print_map_2d(&map);
 	start_graphics(&map, image_width, image_heigth);
 	// one line becomes one int array
 	// => 2D array, formatted as [y][x]
