@@ -6,21 +6,23 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:50:19 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/18 15:12:24 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:21:30 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-// TODO get rid of magic numbers if possible
+// degrees * (PI / 180) = radians
 void	to_isometric(t_map *map)
 {
 	int	y;
 	int	x;
 	double	angle;
+	double	axis_angle;
 
 	y = 0;
-	angle = 0.52; // 30 deg in rads
+	angle = 30 * (M_PI / 180);
+	axis_angle = 120 * (M_PI / 180);
 	while (y < map->rows)
 	{
 		x = 0;
@@ -28,12 +30,12 @@ void	to_isometric(t_map *map)
 		{
 			map->arr[y][x].screen_x =
 				(x * cos(angle)) +
-				 (y * cos(angle + 2.09)) + //120 deg in rads
-				 (map->arr[y][x].depth * cos(angle - 2.09));
+				 (y * cos(angle + axis_angle)) +
+				 (map->arr[y][x].depth * cos(angle - axis_angle));
 			map->arr[y][x].screen_y =
 				(x * sin(angle)) +
-				 (y * sin(angle + 2.09)) + //120 deg in rads
-				 (map->arr[y][x].depth * sin(angle - 2.09));
+				 (y * sin(angle + axis_angle)) + 
+				 (map->arr[y][x].depth * sin(angle - axis_angle));
 			x++;
 		}
 		y++;
