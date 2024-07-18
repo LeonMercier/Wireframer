@@ -6,12 +6,13 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:50:19 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/15 15:02:58 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:12:24 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
+// TODO get rid of magic numbers if possible
 void	to_isometric(t_map *map)
 {
 	int	y;

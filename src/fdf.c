@@ -6,12 +6,11 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/17 16:47:10 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:20:19 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-#include <stdio.h> //debugging
 
 void	kbd_hook(void *param)
 {
@@ -24,11 +23,7 @@ void	kbd_hook(void *param)
 
 int	ft_draw(t_map *map, mlx_image_t *image)
 {
-//	(void) map;
 	set_all_pixels(image, 0x000000FF);
-//	t_line line;
-//	line = (t_line){.xa = 20, .ya = 30, .xb = 150, .yb = 200};
-//	draw_line(image, line, 0xFF0000FF);
 	connect_points(map, image);
 	return (0);
 }
@@ -85,10 +80,9 @@ void	flatten(t_map *map, double flattenfactor)
 	}
 }
 
-// handle both zooming in and zooming out
+// handles both zooming in and zooming out
 void	fit_to_image(t_map *map, int image_width, int image_heigth)
 {
-	// diff between min and max
 	double	dy;
 	double	dx;
 	t_point	min;
@@ -104,12 +98,10 @@ void	fit_to_image(t_map *map, int image_width, int image_heigth)
 	zoomfactor_x = dx / image_width;
 	ft_zoom(map, fmin(1 / zoomfactor_y, 1 / zoomfactor_x));
 }
-// store a list of points
-// each point has 3D coords
-// and 2D coords
-// calculate 2D coords from  3D coords
-// then we can still see which points to connect based on the 3D coords
-// TODO: take advantage of image size being stored in image var
+
+// TODO: last col of mars.fdf behaving oddly now that initialization of 
+// screen_x and screen_y removed ?
+// TODO: match oriontation of test executable?
 int	main(int argc, char **argv)
 {
 	int	image_width;
@@ -129,16 +121,16 @@ int	main(int argc, char **argv)
 	map.arr = 0;
 	map.rows = 0;
 	map.cols = 0;
-	image_width = 1000;
+	image_width = 1600;
 	image_heigth = 1000;
 	read_file(&map, argv[1]);
-	printf("initial map\n");
+	ft_printf("initial map\n");
 	//print_map(&map);
-	printf("\n");
-	printf("flatened map\n");
+	ft_printf("\n");
+	ft_printf("flatened map\n");
 	flatten(&map, 5);
 	//print_map(&map);
-	printf("isometric map\n");
+	ft_printf("isometric map\n");
 	to_isometric(&map);
 	//print_map_2d(&map);
 	
@@ -148,7 +140,4 @@ int	main(int argc, char **argv)
 	shift_top_left(&map);
 	//print_map_2d(&map);
 	start_graphics(&map, image_width, image_heigth);
-	// one line becomes one int array
-	// => 2D array, formatted as [y][x]
-	// struct to store array, width and heigth
 }

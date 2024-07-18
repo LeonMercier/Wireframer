@@ -6,12 +6,11 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:51:51 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/16 17:14:00 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:12:00 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-
 
 void	shift_coords(t_map *map, double yshift, double xshift)
 {

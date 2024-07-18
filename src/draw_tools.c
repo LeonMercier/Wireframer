@@ -6,30 +6,11 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:31:32 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/18 13:45:02 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:07:08 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-
-void	draw_square(mlx_image_t *image, unsigned int width, unsigned int x,
-		unsigned int y, uint32_t color)
-{
-	unsigned int	i;
-	unsigned int	j;
-
-	i = 0;
-	while (i < width && i + x < image->width)
-	{
-		j = 0;
-		while (j < width && j + y < image->width)
-		{
-			mlx_put_pixel(image, i + x, j + y, color);
-			j++;
-		}
-		i++;
-	}
-}
 
 void	set_all_pixels(mlx_image_t *image, uint32_t color)
 {
@@ -48,35 +29,8 @@ void	set_all_pixels(mlx_image_t *image, uint32_t color)
 		i++;
 	}
 }
-/*
-void	draw_map_simple(t_map *map, mlx_image_t *image)
-{
-	unsigned int	x;
-	unsigned int	y;
-	int				col;
-	int				row;
 
-	x = 0;
-	col = 0;
-	while (col < map->cols)
-	{
-		y = 0;
-		row = 0;
-		while (row < map->rows)
-		{
-			
-			if (map->arr[row][col] > 0)
-			{
-				draw_square(image, 10, x, y, 0xFF0000FF);
-			}
-			row++;
-			y += 10;
-		}
-		col++;
-		x += 10;
-	}
-}
-*/
+
 // Get the red channel.
 int get_r(int rgba)
 {
@@ -105,6 +59,7 @@ int get_a(int rgba)
     return (rgba & 0xFF);
 }
 
+// TODO: check for division by zero
 uint32_t	get_gradient(int dx, int dy, t_line line, uint32_t color_a,
 		uint32_t color_b)
 {
@@ -168,7 +123,6 @@ void	draw_line(mlx_image_t *image, t_line line, uint32_t color_a,
 	err = dx + dy;
 	while (line.xa != line.xb || line.ya != line.yb)
 	{
-		//mlx_put_pixel(image, line.xa, line.ya, (color_a + color_b) / 2);
 		mlx_put_pixel(image, line.xa, line.ya,
 				get_gradient(dx, dy, line, color_a, color_b));
 		new_err = 2 * err;
