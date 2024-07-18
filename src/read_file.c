@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/17 17:43:06 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:33:05 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,14 @@ int	parse_color(char *str)
 	return (color);
 }
 
+static void	populate_color_channels(t_point *point)
+{
+	point->red = (point->color >> 24) & 0xFF;
+	point->green = (point->color >> 16) & 0xFF;
+	point->blue = (point->color >> 8) & 0xFF;
+	point->alpha = point->color & 0xFF;
+}
+
 // TODO: is it necessary to initialize screen_x and screen_y here?
 // the second call to ft_split get rid of the newlines of the last column
 static void	parse_point(t_map *map, char *point, int y, int x)
@@ -79,7 +87,8 @@ static void	parse_point(t_map *map, char *point, int y, int x)
 		map->arr[y][x].color = parse_color(ft_split(strv[1], '\n')[0]); //TODO
 	}
 	else
-		map->arr[y][x].color = 0xFF0000FF;
+		map->arr[y][x].color = 0xFFFFFFFF;
+	populate_color_channels(&map->arr[y][x]);
 }
 
 static int	parse_line(t_map *map, char *line)
