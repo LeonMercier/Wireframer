@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/18 12:45:42 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:11:58 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,5 @@ void	get_max_coords(t_map *map, t_point *max);
 // debug.c
 void	print_map(t_map *map);
 void	print_map_2d(t_map *map);
+
 #endif

@@ -6,7 +6,7 @@
 #    By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/01 11:56:58 by lemercie          #+#    #+#              #
-#    Updated: 2024/07/16 16:54:51 by lemercie         ###   ########.fr        #
+#    Updated: 2024/07/19 09:11:27 by lemercie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ libft: .libft_cloned
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) 
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) ./include/fdf.h
 	$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(HEADERS) -o $(NAME)
 
 clean:
