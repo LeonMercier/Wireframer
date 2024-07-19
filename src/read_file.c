@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/18 15:11:42 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:05:39 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,23 @@ int	hexchar_to_int(char c)
 		i++;
 	}
 	ft_printf("Error in hexchar_to_int(): %c \n", c);
-	return (0);
+	return (-1);
 }
 
 // shifting to the left and adding 255 adds the alpha channel at full opacity
 int	parse_color(char *str)
 {
 	int	color;
+	int	word;
 
 	color = 0;
 	str += 2;
 	while (*str)
 	{
-		color = (color * 16) + hexchar_to_int(*str);
+		word = hexchar_to_int(*str);
+		if (word < 0 || word > 16)
+			break ;
+		color = (color * 16) + word;
 		str++;
 	}
 	color = color << 8;
