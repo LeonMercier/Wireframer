@@ -6,19 +6,23 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 09:18:35 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:52:09 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-static int	getlen_strv(char **strv)
+static int	get_colnum(char *line)
 {
 	int	len;
+	char	**strv;
 
 	len = 0;
+	strv = ft_split(line, ' '); // TODO error handling
 	while (*strv)
 	{
+		if (*strv[0] < '0' || *strv[0] > '9')
+			break ;
 		strv++;
 		len++;
 	}
@@ -71,7 +75,7 @@ static void	parse_point(t_map *map, char *point, int y, int x)
 
 	strv = ft_split(point, ',');	//TODO fail check
 	err_atoi = 0;
-	map->arr[y][x].depth =  ft_atoi_safe2(strv[0], &err_atoi);
+	map->arr[y][x].depth = ft_atoi_safe2(strv[0], &err_atoi);
 	if (err_atoi)
 		ft_printf("atoi error: %i\n", err_atoi);
 	if (strv[1]) // TODO check ft_split fail
@@ -89,7 +93,7 @@ static int	parse_line(t_map *map, char *line)
 	strv = ft_split(line, ' ');
 	if (!strv)
 		return (-1);
-	map->cols = getlen_strv(strv); // assuming rectangular map, this would 
+//	map->cols = getlen_strv(strv); // assuming rectangular map, this would 
 								   // really only need to be set once
 	map->rows++;
 	new_arr = malloc(map->rows  * sizeof(t_point *));
@@ -98,7 +102,7 @@ static int	parse_line(t_map *map, char *line)
 	map->arr = new_arr;
 	map->arr[map->rows - 1] = malloc(map->cols * sizeof(t_point));
 	i = 0;
-	while (*strv) 
+	while (i < map->cols) 
 	{
 		parse_point(map, *strv, map->rows - 1, i);
 		strv++;
@@ -124,6 +128,7 @@ int	read_file(t_map *map, char *filename)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
+		map->cols = get_colnum(line);
 		if (parse_line(map, line) < 0)
 		{
 			ft_printf("Error in parse_line()\n");
