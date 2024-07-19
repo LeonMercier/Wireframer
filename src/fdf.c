@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/18 15:20:19 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:19:49 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,8 @@ int	main(int argc, char **argv)
 	map.cols = 0;
 	image_width = 1600;
 	image_heigth = 1000;
-	read_file(&map, argv[1]);
+	if (read_file(&map, argv[1]) == -1)
+		return (0);
 	ft_printf("initial map\n");
 	//print_map(&map);
 	ft_printf("\n");

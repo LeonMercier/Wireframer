@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 09:05:39 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:18:35 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,11 @@ int	read_file(t_map *map, char *filename)
 	char	*line;
 
 	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_printf("Error: Could not open file\n");
+		return (-1);
+	}
 	while (1)
 	{
 		line = get_next_line(fd);
