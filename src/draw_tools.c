@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:31:32 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 16:03:08 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 17:05:45 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ uint32_t	get_gradient(int dx, int dy, t_line line, uint32_t color_a,
 
 	ret_color = 0;
 	curlen_by_totlen = (sqrt(pow((line.xb - line.xa), 2)
-			+ pow((line.yb - line.ya), 2)))
+				+ pow((line.yb - line.ya), 2)))
 		/ (sqrt((dy * dy) + (dx * dx)));
 	ret_color += trunc((get_r(color_a) * curlen_by_totlen)
 			+ (get_r(color_b) * (1 - curlen_by_totlen)));
@@ -103,7 +103,7 @@ void	draw_line(mlx_image_t *image, t_line line, uint32_t color_a,
 	while (line.xa != line.xb || line.ya != line.yb)
 	{
 		if (line.xa < 0 || (unsigned int) line.xa >= image->width
-				|| line.ya < 0 || (unsigned int) line.ya >= image->height)
+			|| line.ya < 0 || (unsigned int) line.ya >= image->height)
 		{
 			ft_printf("Error: pixel coords %i, %i out of bounds\n", line.ya,
 				line.xa);

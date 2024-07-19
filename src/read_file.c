@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 12:25:27 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:53:11 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // newline. Checking if the substring starts with a digit gets rid of it.
 static int	get_colnum(char *line)
 {
-	int	len;
+	int		len;
 	char	**strv;
 
 	len = 0;
@@ -87,7 +87,7 @@ int	parse_point(t_map *map, char *point, int y, int x)
 		return (-1);
 	}
 	if (strv[1])
-		map->arr[y][x].color = parse_color(strv[1]); 
+		map->arr[y][x].color = parse_color(strv[1]);
 	else
 		map->arr[y][x].color = 0xFFFFFFFF;
 	return (0);
@@ -97,13 +97,13 @@ static int	parse_line(t_map *map, char *line)
 {
 	char	**strv;
 	int		i;
-	t_point **new_arr;
+	t_point	**new_arr;
 
 	strv = ft_split(line, ' ');
 	if (!strv)
 		return (-1);
 	map->rows++;
-	new_arr = malloc(map->rows  * sizeof(t_point *));
+	new_arr = malloc(map->rows * sizeof(t_point *));
 	if (!new_arr)
 		return (-1);
 	if (map->arr)
@@ -114,7 +114,7 @@ static int	parse_line(t_map *map, char *line)
 	if (!map->arr[map->rows - 1])
 		return (-1);
 	i = 0;
-	while (i < map->cols) 
+	while (i < map->cols)
 	{
 		if (parse_point(map, *strv, map->rows - 1, i) == -1)
 			return (-1);

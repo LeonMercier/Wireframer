@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 15:18:02 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 17:09:34 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,16 @@ int	start_graphics(t_map *map, int image_width, int image_heigth)
 
 	mlx = mlx_init(image_width, image_heigth, "FdF", true);
 	if (!mlx)
-	{
-		ft_printf("Error: failed mlx_init()\n");
 		return (-1);
-	}
 	image = mlx_new_image(mlx, image_width, image_heigth);
 	if (!image)
 	{
 		mlx_close_window(mlx);
-		ft_printf("Error: failed mlx_new_image()\n");
 		return (-1);
 	}
 	if (mlx_image_to_window(mlx, image, 0, 0) < 0)
 	{
 		mlx_close_window(mlx);
-		ft_printf("Error: failed mlx_image_to_window()\n");
 		return (-1);
 	}
 	ft_draw(map, image);
@@ -59,53 +54,26 @@ int	start_graphics(t_map *map, int image_width, int image_heigth)
 	return (0);
 }
 
-// TODO: how about a function that iterates over the whole map and applies a
-// function passed to it to every t_point?
-void	flatten(t_map *map, double flattenfactor)
+static void	draw_map(t_map *map)
 {
-	int	y;
-	int	x;
+	int		image_width;
+	int		image_heigth;
+	int		margin_px;
 
-	y = 0;
-	while (y < map->rows)
-	{
-		x = 0;
-		while (x < map->cols)
-		{
-			map->arr[y][x].depth /= flattenfactor;
-			x++;
-		}
-		y++;
-	}
-}
-
-// handles both zooming in and zooming out
-void	fit_to_image(t_map *map, int image_width, int image_heigth)
-{
-	double	dy;
-	double	dx;
-	t_point	min;
-	t_point	max;
-	double	zoomfactor_y;
-	double	zoomfactor_x;
-
-	get_min_coords(map, &min);
-	get_max_coords(map, &max);
-	dy = fabs(max.screen_y - min.screen_y);
-	dx = fabs(max.screen_x - min.screen_x);
-	zoomfactor_y = dy / image_heigth;
-	zoomfactor_x = dx / image_width;
-	if (zoomfactor_y <= 0 || zoomfactor_x <= 0)
-		return ;
-	ft_zoom(map, fmin(1 / zoomfactor_y, 1 / zoomfactor_x));
+	image_width = 1600;
+	image_heigth = 1000;
+	margin_px = 15;
+	flatten(map, 1);
+	to_isometric(map);
+	fit_to_image(map, image_width - (margin_px * 2), image_heigth
+		- (margin_px * 2));
+	shift_top_left(map, margin_px, margin_px);
+	start_graphics(map, image_width, image_heigth);
 }
 
 // TODO: match oriontation of test executable?
 int	main(int argc, char **argv)
 {
-	int	image_width;
-	int	image_heigth;
-	int	margin_px;
 	t_map	map;
 
 	if (argc == 1)
@@ -120,29 +88,10 @@ int	main(int argc, char **argv)
 	}
 	map.arr = 0;
 	map.rows = 0;
-	image_width = 1600;
-	image_heigth = 1000;
 	if (read_file(&map, argv[1]) == -1)
 	{
 		ft_printf("Error parsing file\n");
 		return (1);
 	}
-//	ft_printf("initial map\n");
-	//print_map(&map);
-//	ft_printf("\n");
-//	ft_printf("flatened map\n");
-	flatten(&map, 1);
-//	print_map(&map);
-//	ft_printf("isometric map\n");
-	to_isometric(&map);
-	//print_map_2d(&map);
-	
-//	ft_zoom(&map, 20);
-	margin_px = 15;
-	fit_to_image(&map, image_width - (margin_px * 2), image_heigth
-			- (margin_px * 2));
-	//print_map_2d(&map);
-	shift_top_left(&map, margin_px, margin_px);
-	//print_map_2d(&map);
-	start_graphics(&map, image_width, image_heigth);
+	draw_map(&map);
 }

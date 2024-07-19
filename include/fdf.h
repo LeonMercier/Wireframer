@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 13:59:24 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:45:17 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	read_file(t_map *map, char *filename);
 void	set_all_pixels(mlx_image_t *image, uint32_t color);
 void	draw_line(mlx_image_t *image, t_line line, uint32_t color_a,
 		uint32_t color_b);
+// fit_to_image.c
+void	fit_to_image(t_map *map, int image_width, int image_heigth);
 // connect_points.c
 void	connect_points(t_map *map, mlx_image_t *image);
 // to_isometric.c
@@ -61,6 +63,7 @@ void	ft_zoom(t_map *map, double zoomfactor);
 // map_tools.c
 void	get_min_coords(t_map *map, t_point *min);
 void	get_max_coords(t_map *map, t_point *max);
+void	flatten(t_map *map, double flattenfactor);
 // utils.c
 void	fdf_cleanup(t_map *map, char *line);
 void	fdf_cleanup_exit(t_map *map, char *line);

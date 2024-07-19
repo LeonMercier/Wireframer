@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:55:12 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/16 16:56:40 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:42:23 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,22 @@ void	get_max_coords(t_map *map, t_point *max)
 		}
 		y++;
 	}	
+}
+
+void	flatten(t_map *map, double flattenfactor)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < map->rows)
+	{
+		x = 0;
+		while (x < map->cols)
+		{
+			map->arr[y][x].depth /= flattenfactor;
+			x++;
+		}
+		y++;
+	}
 }
