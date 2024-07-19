@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:31:32 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/18 15:07:08 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:25:05 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	set_all_pixels(mlx_image_t *image, uint32_t color)
 		i++;
 	}
 }
-
 
 // Get the red channel.
 int get_r(int rgba)

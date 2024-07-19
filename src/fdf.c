@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 09:19:49 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:16:29 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	start_graphics(t_map *map, int image_width, int image_heigth)
 	mlx_loop_hook(mlx, kbd_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
-	(void) map;
 	return (0);
 }
 
@@ -99,8 +98,6 @@ void	fit_to_image(t_map *map, int image_width, int image_heigth)
 	ft_zoom(map, fmin(1 / zoomfactor_y, 1 / zoomfactor_x));
 }
 
-// TODO: last col of mars.fdf behaving oddly now that initialization of 
-// screen_x and screen_y removed ?
 // TODO: match oriontation of test executable?
 int	main(int argc, char **argv)
 {
@@ -129,8 +126,8 @@ int	main(int argc, char **argv)
 	//print_map(&map);
 	ft_printf("\n");
 	ft_printf("flatened map\n");
-	flatten(&map, 5);
-	//print_map(&map);
+	flatten(&map, 1.1);
+	print_map(&map);
 	ft_printf("isometric map\n");
 	to_isometric(&map);
 	//print_map_2d(&map);
