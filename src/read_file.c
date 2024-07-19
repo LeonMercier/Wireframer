@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 12:01:28 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:25:27 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static int	get_colnum(char *line)
 	char	**strv;
 
 	len = 0;
-	strv = ft_split(line, ' '); // TODO error handling
+	strv = ft_split(line, ' ');
+	if (!strv)
+		return (-1);
 	while (*strv)
 	{
 		if (!ft_isdigit(*strv[0]) && *strv[0] != '-' && *strv[0] != '+')
@@ -102,11 +104,15 @@ static int	parse_line(t_map *map, char *line)
 		return (-1);
 	map->rows++;
 	new_arr = malloc(map->rows  * sizeof(t_point *));
+	if (!new_arr)
+		return (-1);
 	if (map->arr)
 		ft_memmove(new_arr, map->arr, sizeof(t_point *) * (map->rows - 1));
 	free(map->arr);
 	map->arr = new_arr;
 	map->arr[map->rows - 1] = malloc(map->cols * sizeof(t_point));
+	if (!map->arr[map->rows - 1])
+		return (-1);
 	i = 0;
 	while (i < map->cols) 
 	{
@@ -130,12 +136,21 @@ int	read_file(t_map *map, char *filename)
 		ft_printf("Error: Could not open file\n");
 		return (-1);
 	}
-	while (1)
+	line = get_next_line(fd);
+	if (!line)
 	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		map->cols = get_colnum(line);
+		close(fd);
+		return (-1);
+	}
+	map->cols = get_colnum(line);
+	if (map->cols == -1)
+	{
+		free(line);
+		close(fd);
+		return (-1);
+	}
+	while (line)
+	{
 		if (parse_line(map, line) < 0)
 		{
 			ft_printf("Error in parse_line()\n");
@@ -144,6 +159,7 @@ int	read_file(t_map *map, char *filename)
 			return (-1);
 		}
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (0);
