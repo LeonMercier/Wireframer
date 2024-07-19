@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 14:18:14 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:18:02 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int	main(int argc, char **argv)
 	//print_map(&map);
 //	ft_printf("\n");
 //	ft_printf("flatened map\n");
-	flatten(&map, 1.1);
+	flatten(&map, 1);
 //	print_map(&map);
 //	ft_printf("isometric map\n");
 	to_isometric(&map);

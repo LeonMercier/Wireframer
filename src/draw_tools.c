@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:31:32 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 12:43:50 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:58:36 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,68 +33,48 @@ void	set_all_pixels(mlx_image_t *image, uint32_t color)
 // Get the red channel.
 int get_r(int rgba)
 {
-    // Move 3 bytes to the right and mask out the first byte.
     return ((rgba >> 24) & 0xFF);
 }
 
 // Get the green channel.
 int get_g(int rgba)
 {
-    // Move 2 bytes to the right and mask out the first byte.
     return ((rgba >> 16) & 0xFF);
 }
 
 // Get the blue channel.
 int get_b(int rgba)
 {
-    // Move 1 byte to the right and mask out the first byte.
     return ((rgba >> 8) & 0xFF);
 }
 
 // Get the alpha channel.
 int get_a(int rgba)
 {
-    // Move 0 bytes to the right and mask out the first byte.
     return (rgba & 0xFF);
 }
 
-// TODO: check for division by zero
 uint32_t	get_gradient(int dx, int dy, t_line line, uint32_t color_a,
 		uint32_t color_b)
 {
-	double total_len;
-	double current_len;
-	unsigned char	channel_a;
-	unsigned char	channel_b;
-	unsigned char	channel_new;
+	double curlen_by_totlen;
 	uint32_t		ret_color;
 
-	total_len = sqrt((dy * dy) + (dx *dx));
-	current_len = sqrt(pow((line.xb - line.xa), 2) +
-			pow((line.yb - line.ya), 2));
-	channel_a = get_r(color_a);
-	channel_b = get_r(color_b);
-	channel_new = trunc((channel_a * (current_len / total_len)) +
-		(channel_b * (1 - (current_len / total_len))));
-	ret_color = channel_new;
+	ret_color = 0;
+	curlen_by_totlen = (sqrt(pow((line.xb - line.xa), 2)
+				+ pow((line.yb - line.ya), 2)))
+				/ (sqrt((dy * dy) + (dx * dx)));
+	ret_color += trunc((get_r(color_a) * curlen_by_totlen)
+			+ (get_r(color_b) * (1 - curlen_by_totlen)));
 	ret_color = ret_color << 8;
-	channel_a = get_g(color_a);
-	channel_b = get_g(color_b);
-	channel_new = trunc((channel_a * (current_len / total_len)) +
-		(channel_b * (1 - (current_len / total_len))));
-	ret_color += channel_new;
+	ret_color += trunc((get_g(color_a) * curlen_by_totlen)
+			+ (get_g(color_b) * (1 - curlen_by_totlen)));
 	ret_color = ret_color << 8;
-	channel_a = get_b(color_a);
-	channel_b = get_b(color_b);
-	channel_new = trunc((channel_a * (current_len / total_len)) +
-		(channel_b * (1 - (current_len / total_len))));
-	ret_color += channel_new;
+	ret_color += trunc((get_b(color_a) * curlen_by_totlen)
+			+ (get_b(color_b) * (1 - curlen_by_totlen)));
 	ret_color = ret_color << 8;
-	channel_a = get_a(color_a);
-	channel_b = get_a(color_b);
-	channel_new = trunc((channel_a * (current_len / total_len)) +
-		(channel_b * (1 - (current_len / total_len))));
-	ret_color += channel_new;
+	ret_color += trunc((get_a(color_a) * curlen_by_totlen)
+			+ (get_a(color_b) * (1 - curlen_by_totlen)));
 	return (ret_color);
 }
 
