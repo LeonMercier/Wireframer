@@ -6,12 +6,14 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 09:52:09 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:57:43 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
+// ft_split will sometimes result in a substring at the end that is just a
+// newline. Checking if the substring starts with a digit gets rid of it.
 static int	get_colnum(char *line)
 {
 	int	len;
@@ -21,7 +23,7 @@ static int	get_colnum(char *line)
 	strv = ft_split(line, ' '); // TODO error handling
 	while (*strv)
 	{
-		if (*strv[0] < '0' || *strv[0] > '9')
+		if (!ft_isdigit(*strv[0]))
 			break ;
 		strv++;
 		len++;
