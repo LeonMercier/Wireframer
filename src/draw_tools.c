@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:31:32 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 10:25:05 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:43:50 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,13 @@ void	draw_line(mlx_image_t *image, t_line line, uint32_t color_a,
 	err = dx + dy;
 	while (line.xa != line.xb || line.ya != line.yb)
 	{
+		if (line.xa < 0 || (unsigned int) line.xa >= image->width ||
+				line.ya < 0 || (unsigned int) line.ya >= image->height)
+		{
+			ft_printf("Error: pixel coords %i, %i out of bounds\n", line.ya,
+					line.xa);
+			break ;
+		}
 		mlx_put_pixel(image, line.xa, line.ya,
 				get_gradient(dx, dy, line, color_a, color_b));
 		new_err = 2 * err;
