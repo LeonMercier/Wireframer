@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 11:16:29 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:33:06 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	fit_to_image(t_map *map, int image_width, int image_heigth)
 	dx = fabs(max.screen_x - min.screen_x);
 	zoomfactor_y = dy / image_heigth;
 	zoomfactor_x = dx / image_width;
+	if (zoomfactor_y <= 0 || zoomfactor_x <= 0)
+		return ;
 	ft_zoom(map, fmin(1 / zoomfactor_y, 1 / zoomfactor_x));
 }
 
@@ -121,7 +123,10 @@ int	main(int argc, char **argv)
 	image_width = 1600;
 	image_heigth = 1000;
 	if (read_file(&map, argv[1]) == -1)
-		return (0);
+	{
+		ft_printf("Error parsing file\n");
+		return (1);
+	}
 	ft_printf("initial map\n");
 	//print_map(&map);
 	ft_printf("\n");
