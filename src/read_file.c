@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 09:57:43 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:12:22 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	get_colnum(char *line)
 	strv = ft_split(line, ' '); // TODO error handling
 	while (*strv)
 	{
-		if (!ft_isdigit(*strv[0]))
+		if (!ft_isdigit(*strv[0]) && *strv[0] != '-' && *strv[0] != '+')
 			break ;
 		strv++;
 		len++;
@@ -95,8 +95,6 @@ static int	parse_line(t_map *map, char *line)
 	strv = ft_split(line, ' ');
 	if (!strv)
 		return (-1);
-//	map->cols = getlen_strv(strv); // assuming rectangular map, this would 
-								   // really only need to be set once
 	map->rows++;
 	new_arr = malloc(map->rows  * sizeof(t_point *));
 	if (map->arr)
