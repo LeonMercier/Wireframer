@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:51:51 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/18 15:12:00 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:59:02 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	shift_coords(t_map *map, double yshift, double xshift)
 	}
 }
 
-void	shift_top_left(t_map *map)
+void	shift_top_left(t_map *map, int ymargin, int xmargin)
 {
 	t_point	min;
 
 	get_min_coords(map, &min);
-	shift_coords(map, - min.screen_y, - min.screen_x);
+	shift_coords(map, - min.screen_y + ymargin, - min.screen_x + xmargin);
 }

@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 11:41:32 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:59:24 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	connect_points(t_map *map, mlx_image_t *image);
 // to_isometric.c
 void	to_isometric(t_map *map);
 // shift_top_left.c
-void	shift_top_left(t_map *map);
+void	shift_top_left(t_map *map, int ymargin, int xmargin);
 // ft_zoom.c
 void	ft_zoom(t_map *map, double zoomfactor);
 // map_tools.c

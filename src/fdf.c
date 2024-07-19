@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 12:33:06 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:18:14 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	main(int argc, char **argv)
 {
 	int	image_width;
 	int	image_heigth;
+	int	margin_px;
 	t_map	map;
 
 	if (argc == 1)
@@ -119,7 +120,6 @@ int	main(int argc, char **argv)
 	}
 	map.arr = 0;
 	map.rows = 0;
-	map.cols = 0;
 	image_width = 1600;
 	image_heigth = 1000;
 	if (read_file(&map, argv[1]) == -1)
@@ -127,20 +127,22 @@ int	main(int argc, char **argv)
 		ft_printf("Error parsing file\n");
 		return (1);
 	}
-	ft_printf("initial map\n");
+//	ft_printf("initial map\n");
 	//print_map(&map);
-	ft_printf("\n");
-	ft_printf("flatened map\n");
+//	ft_printf("\n");
+//	ft_printf("flatened map\n");
 	flatten(&map, 1.1);
-	print_map(&map);
-	ft_printf("isometric map\n");
+//	print_map(&map);
+//	ft_printf("isometric map\n");
 	to_isometric(&map);
 	//print_map_2d(&map);
 	
 //	ft_zoom(&map, 20);
-	fit_to_image(&map, image_width, image_heigth);
+	margin_px = 15;
+	fit_to_image(&map, image_width - (margin_px * 2), image_heigth
+			- (margin_px * 2));
 	//print_map_2d(&map);
-	shift_top_left(&map);
+	shift_top_left(&map, margin_px, margin_px);
 	//print_map_2d(&map);
 	start_graphics(&map, image_width, image_heigth);
 }
