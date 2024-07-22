@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:31:32 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 17:05:45 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/22 12:15:18 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,17 @@ void	set_all_pixels(mlx_image_t *image, uint32_t color)
 	}
 }
 
-// Get the red channel.
-int	get_r(int rgba)
+int	get_channel(int rgba, char channel)
 {
-	return ((rgba >> 24) & 0xFF);
-}
-
-// Get the green channel.
-int	get_g(int rgba)
-{
-	return ((rgba >> 16) & 0xFF);
-}
-
-// Get the blue channel.
-int	get_b(int rgba)
-{
-	return ((rgba >> 8) & 0xFF);
-}
-
-// Get the alpha channel.
-int	get_a(int rgba)
-{
-	return (rgba & 0xFF);
+	if (channel == 'r')
+		return ((rgba >> 24) & 0xFF);
+	if (channel == 'g')
+		return ((rgba >> 16) & 0xFF);
+	if (channel == 'b')
+		return ((rgba >> 8) & 0xFF);
+	if (channel == 'a')
+		return (rgba & 0xFF);
+	return (0);
 }
 
 uint32_t	get_gradient(int dx, int dy, t_line line, uint32_t color_a,
@@ -64,17 +53,17 @@ uint32_t	get_gradient(int dx, int dy, t_line line, uint32_t color_a,
 	curlen_by_totlen = (sqrt(pow((line.xb - line.xa), 2)
 				+ pow((line.yb - line.ya), 2)))
 		/ (sqrt((dy * dy) + (dx * dx)));
-	ret_color += trunc((get_r(color_a) * curlen_by_totlen)
-			+ (get_r(color_b) * (1 - curlen_by_totlen)));
+	ret_color += trunc((get_channel(color_a, 'r') * curlen_by_totlen)
+			+ (get_channel(color_b, 'r') * (1 - curlen_by_totlen)));
 	ret_color = ret_color << 8;
-	ret_color += trunc((get_g(color_a) * curlen_by_totlen)
-			+ (get_g(color_b) * (1 - curlen_by_totlen)));
+	ret_color += trunc((get_channel(color_a, 'g') * curlen_by_totlen)
+			+ (get_channel(color_b, 'g') * (1 - curlen_by_totlen)));
 	ret_color = ret_color << 8;
-	ret_color += trunc((get_b(color_a) * curlen_by_totlen)
-			+ (get_b(color_b) * (1 - curlen_by_totlen)));
+	ret_color += trunc((get_channel(color_a, 'b') * curlen_by_totlen)
+			+ (get_channel(color_b, 'b') * (1 - curlen_by_totlen)));
 	ret_color = ret_color << 8;
-	ret_color += trunc((get_a(color_a) * curlen_by_totlen)
-			+ (get_a(color_b) * (1 - curlen_by_totlen)));
+	ret_color += trunc((get_channel(color_a, 'a') * curlen_by_totlen)
+			+ (get_channel(color_b, 'a') * (1 - curlen_by_totlen)));
 	return (ret_color);
 }
 
