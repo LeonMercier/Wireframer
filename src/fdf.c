@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/22 16:17:19 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:24:15 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,30 @@ static void	kbd_hook(void *param)
 		mlx_close_window(mlx);
 }
 
-// TODO use return values of call cleanup?
-static int	start_graphics(t_map *map, int image_width, int image_heigth)
+static void	start_graphics(t_map *map, int image_width, int image_heigth)
 {
 	mlx_t		*mlx;
 	mlx_image_t	*image;
 
 	mlx = mlx_init(image_width, image_heigth, "FdF", true);
 	if (!mlx)
-		return (-1);
+		fdf_cleanup_exit(map);
 	image = mlx_new_image(mlx, image_width, image_heigth);
 	if (!image)
 	{
 		mlx_close_window(mlx);
-		return (-1);
+		fdf_cleanup_exit(map);
 	}
 	if (mlx_image_to_window(mlx, image, 0, 0) < 0)
 	{
 		mlx_close_window(mlx);
-		return (-1);
+		fdf_cleanup_exit(map);
 	}
 	set_all_pixels(image, 0x000000FF);
 	connect_points(map, image);
 	mlx_loop_hook(mlx, kbd_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
-	return (0);
 }
 
 static void	draw_map(t_map *map)
@@ -83,10 +81,10 @@ static int	open_file(t_map *map, char *filename)
 		free_map(map);
 		return (-1);
 	}
+	close(fd);
 	return (0);
 }
 
-// TODO: match oriontation of test executable?
 int	main(int argc, char **argv)
 {
 	t_map	map;

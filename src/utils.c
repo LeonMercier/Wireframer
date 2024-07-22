@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 11:13:44 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/22 16:15:12 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:03:06 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,15 @@ void	free_map(t_map *map)
 	}
 }
 
-void	fdf_cleanup(t_map *map, char *line)
+void	fdf_cleanup(t_map *map)
 {
-	free(line);
 	free_map(map);
 }
 
-void	fdf_cleanup_exit(t_map *map, char *line)
+void	fdf_cleanup_exit(t_map *map)
 {
-	fdf_cleanup(map, line);
-	exit(-1);
+	fdf_cleanup(map);
+	exit(1);
 }
 
 int	hexchar_to_int(char c)
