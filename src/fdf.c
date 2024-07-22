@@ -6,13 +6,13 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/22 16:07:23 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:17:19 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	kbd_hook(void *param)
+static void	kbd_hook(void *param)
 {
 	mlx_t	*mlx;
 
@@ -21,14 +21,8 @@ void	kbd_hook(void *param)
 		mlx_close_window(mlx);
 }
 
-int	ft_draw(t_map *map, mlx_image_t *image)
-{
-	set_all_pixels(image, 0x000000FF);
-	connect_points(map, image);
-	return (0);
-}
-
-int	start_graphics(t_map *map, int image_width, int image_heigth)
+// TODO use return values of call cleanup?
+static int	start_graphics(t_map *map, int image_width, int image_heigth)
 {
 	mlx_t		*mlx;
 	mlx_image_t	*image;
@@ -47,7 +41,8 @@ int	start_graphics(t_map *map, int image_width, int image_heigth)
 		mlx_close_window(mlx);
 		return (-1);
 	}
-	ft_draw(map, image);
+	set_all_pixels(image, 0x000000FF);
+	connect_points(map, image);
 	mlx_loop_hook(mlx, kbd_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
@@ -71,7 +66,7 @@ static void	draw_map(t_map *map)
 	start_graphics(map, image_width, image_heigth);
 }
 
-int	open_file(t_map *map, char *filename)
+static int	open_file(t_map *map, char *filename)
 {
 	int		fd;
 

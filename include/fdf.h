@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/22 15:35:46 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:15:33 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	flatten(t_map *map, double flattenfactor);
 void	free_map(t_map *map);
 void	fdf_cleanup(t_map *map, char *line);
 void	fdf_cleanup_exit(t_map *map, char *line);
+int		hexchar_to_int(char c);
 // debug.c
 void	print_map(t_map *map);
 void	print_map_2d(t_map *map);

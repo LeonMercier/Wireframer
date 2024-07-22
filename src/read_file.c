@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/22 16:06:39 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:16:22 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,8 @@ static int	get_colnum(char *line)
 	return (len);
 }
 
-int	hexchar_to_int(char c)
-{
-	const char	upper[] = {"0123456789ABCDEF"};
-	const char	lower[] = {"0123456789abcdef"};
-	int			i;
-
-	i = 0;
-	while (i < 16)
-	{
-		if (c == lower[i] || c == upper[i])
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
 // shifting to the left and adding 255 adds the alpha channel at full opacity
-int	parse_color(char *str)
+static int	parse_color(char *str)
 {
 	int	color;
 	int	word;
@@ -74,7 +58,7 @@ int	parse_color(char *str)
 }
 
 // the second call to ft_split get rid of the newlines of the last column
-int	parse_point(t_map *map, char *point, int y, int x)
+static int	parse_point(t_map *map, char *point, int y, int x)
 {
 	char	**strv;
 	int		err_atoi;
