@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/22 14:35:41 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:35:46 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct	s_line
 }	t_line;
 
 // read_file.c
-int	read_file(t_map *map, char *filename);
+int	read_file(t_map *map, int fd);
 // draw_tools.c
 void	set_all_pixels(mlx_image_t *image, uint32_t color);
 void	draw_line(mlx_image_t *image, t_line line);
@@ -69,6 +69,7 @@ void	get_min_coords(t_map *map, t_point *min);
 void	get_max_coords(t_map *map, t_point *max);
 void	flatten(t_map *map, double flattenfactor);
 // utils.c
+void	free_map(t_map *map);
 void	fdf_cleanup(t_map *map, char *line);
 void	fdf_cleanup_exit(t_map *map, char *line);
 // debug.c

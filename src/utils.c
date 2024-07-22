@@ -6,13 +6,13 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 11:13:44 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 16:51:45 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:35:34 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-static void	free_map(t_map *map)
+void	free_map(t_map *map)
 {
 	int	i;
 

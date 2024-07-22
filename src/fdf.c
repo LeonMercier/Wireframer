@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 17:09:34 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:07:23 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,26 @@ static void	draw_map(t_map *map)
 	start_graphics(map, image_width, image_heigth);
 }
 
+int	open_file(t_map *map, char *filename)
+{
+	int		fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_printf("Error: Could not open file\n");
+		return (-1);
+	}
+	if (read_file(map, fd) == -1)
+	{
+		ft_printf("Error: failed to read file\n");
+		close(fd);
+		free_map(map);
+		return (-1);
+	}
+	return (0);
+}
+
 // TODO: match oriontation of test executable?
 int	main(int argc, char **argv)
 {
@@ -88,10 +108,8 @@ int	main(int argc, char **argv)
 	}
 	map.arr = 0;
 	map.rows = 0;
-	if (read_file(&map, argv[1]) == -1)
-	{
-		ft_printf("Error parsing file\n");
+	if (open_file(&map, argv[1]) == -1)
 		return (1);
-	}
 	draw_map(&map);
+	return (0);
 }

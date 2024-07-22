@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 16:53:11 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:06:39 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static int	get_colnum(char *line)
 	len = 0;
 	strv = ft_split(line, ' ');
 	if (!strv)
+	{
+		free(line);
 		return (-1);
+	}
 	while (*strv)
 	{
 		if (!ft_isdigit(*strv[0]) && *strv[0] != '-' && *strv[0] != '+')
@@ -100,11 +103,9 @@ static int	parse_line(t_map *map, char *line)
 	t_point	**new_arr;
 
 	strv = ft_split(line, ' ');
-	if (!strv)
-		return (-1);
 	map->rows++;
 	new_arr = malloc(map->rows * sizeof(t_point *));
-	if (!new_arr)
+	if (!new_arr || !strv)
 		return (-1);
 	if (map->arr)
 		ft_memmove(new_arr, map->arr, sizeof(t_point *) * (map->rows - 1));
@@ -124,43 +125,29 @@ static int	parse_line(t_map *map, char *line)
 	return (0);
 }
 
-// TODO: do we know whether GNL has reached EOF or failed internally?
-int	read_file(t_map *map, char *filename)
+int	read_file(t_map *map, int fd)
 {
-	int		fd;
 	char	*line;
 
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
+	while (1)
 	{
-		ft_printf("Error: Could not open file\n");
-		return (-1);
-	}
-	line = get_next_line(fd);
-	if (!line)
-	{
-		close(fd);
-		return (-1);
-	}
-	map->cols = get_colnum(line);
-	if (map->cols == -1)
-	{
-		free(line);
-		close(fd);
-		return (-1);
-	}
-	while (line)
-	{
+		line = get_next_line(fd);
+		if (map->rows == 0)
+		{
+			if (!line)
+				return (-1);
+			map->cols = get_colnum(line);
+			if (map->cols < 0)
+				return (-1);
+		}
+		if (!line)
+			break ;
 		if (parse_line(map, line) < 0)
 		{
-			ft_printf("Error in parse_line()\n");
-			close(fd);
-			fdf_cleanup_exit(map, line);
+			free(line);
 			return (-1);
 		}
 		free(line);
-		line = get_next_line(fd);
 	}
-	close(fd);
 	return (0);
-}
+}		
