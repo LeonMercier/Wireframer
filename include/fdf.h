@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/22 12:06:01 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:35:41 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,19 @@ typedef struct	s_line
 	int	ya;
 	int	xb;
 	int	yb;
+	int	dx;
+	int	dy;
+	int	inc_x;
+	int	inc_y;
+	int	color_a;
+	int	color_b;
 }	t_line;
 
 // read_file.c
 int	read_file(t_map *map, char *filename);
 // draw_tools.c
 void	set_all_pixels(mlx_image_t *image, uint32_t color);
-void	draw_line(mlx_image_t *image, t_line line, uint32_t color_a,
-		uint32_t color_b);
+void	draw_line(mlx_image_t *image, t_line line);
 // fit_to_image.c
 void	fit_to_image(t_map *map, int image_width, int image_heigth);
 // connect_points.c

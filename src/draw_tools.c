@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:31:32 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/22 12:15:18 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:53:55 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int	get_channel(int rgba, char channel)
 	return (0);
 }
 
-uint32_t	get_gradient(int dx, int dy, t_line line, uint32_t color_a,
-		uint32_t color_b)
+uint32_t	get_gradient(t_line line)
 {
 	double		curlen_by_totlen;
 	uint32_t	ret_color;
@@ -52,64 +51,59 @@ uint32_t	get_gradient(int dx, int dy, t_line line, uint32_t color_a,
 	ret_color = 0;
 	curlen_by_totlen = (sqrt(pow((line.xb - line.xa), 2)
 				+ pow((line.yb - line.ya), 2)))
-		/ (sqrt((dy * dy) + (dx * dx)));
-	ret_color += trunc((get_channel(color_a, 'r') * curlen_by_totlen)
-			+ (get_channel(color_b, 'r') * (1 - curlen_by_totlen)));
+		/ (sqrt((line.dy * line.dy) + (line.dx * line.dx)));
+	ret_color += trunc((get_channel(line.color_a, 'r') * curlen_by_totlen)
+			+ (get_channel(line.color_b, 'r') * (1 - curlen_by_totlen)));
 	ret_color = ret_color << 8;
-	ret_color += trunc((get_channel(color_a, 'g') * curlen_by_totlen)
-			+ (get_channel(color_b, 'g') * (1 - curlen_by_totlen)));
+	ret_color += trunc((get_channel(line.color_a, 'g') * curlen_by_totlen)
+			+ (get_channel(line.color_b, 'g') * (1 - curlen_by_totlen)));
 	ret_color = ret_color << 8;
-	ret_color += trunc((get_channel(color_a, 'b') * curlen_by_totlen)
-			+ (get_channel(color_b, 'b') * (1 - curlen_by_totlen)));
+	ret_color += trunc((get_channel(line.color_a, 'b') * curlen_by_totlen)
+			+ (get_channel(line.color_b, 'b') * (1 - curlen_by_totlen)));
 	ret_color = ret_color << 8;
-	ret_color += trunc((get_channel(color_a, 'a') * curlen_by_totlen)
-			+ (get_channel(color_b, 'a') * (1 - curlen_by_totlen)));
+	ret_color += trunc((get_channel(line.color_a, 'a') * curlen_by_totlen)
+			+ (get_channel(line.color_b, 'a') * (1 - curlen_by_totlen)));
 	return (ret_color);
 }
 
-// Bresenham's line algo
-void	draw_line(mlx_image_t *image, t_line line, uint32_t color_a,
-		uint32_t color_b)
+void	draw_line_loop(mlx_image_t *image, t_line line)
 {
-	int	dx;
-	int	dy;
-	int	inc_x;
-	int	inc_y;
 	int	err;
 	int	new_err;
 
-	dx = abs(line.xb - line.xa);
-	if (line.xa < line.xb)
-		inc_x = 1;
-	else
-		inc_x = -1;
-	dy = -1 * abs(line.yb - line.ya);
-	if (line.ya < line.yb)
-		inc_y = 1;
-	else
-		inc_y = -1;
-	err = dx + dy;
+	err = line.dx + line.dy;
 	while (line.xa != line.xb || line.ya != line.yb)
 	{
 		if (line.xa < 0 || (unsigned int) line.xa >= image->width
 			|| line.ya < 0 || (unsigned int) line.ya >= image->height)
-		{
-			ft_printf("Error: pixel coords %i, %i out of bounds\n", line.ya,
-				line.xa);
 			break ;
-		}
-		mlx_put_pixel(image, line.xa, line.ya,
-			get_gradient(dx, dy, line, color_a, color_b));
+		mlx_put_pixel(image, line.xa, line.ya, get_gradient(line));
 		new_err = 2 * err;
-		if (new_err >= dy)
+		if (new_err >= line.dy)
 		{
-			err += dy;
-			line.xa += inc_x;
+			err += line.dy;
+			line.xa += line.inc_x;
 		}
-		if (new_err <= dx)
+		if (new_err <= line.dx)
 		{
-			err += dx;
-			line.ya += inc_y;
+			err += line.dx;
+			line.ya += line.inc_y;
 		}
 	}
+}
+
+// Bresenham's line algo
+void	draw_line(mlx_image_t *image, t_line line)
+{
+	line.dx = abs(line.xb - line.xa);
+	if (line.xa < line.xb)
+		line.inc_x = 1;
+	else
+		line.inc_x = -1;
+	line.dy = -1 * abs(line.yb - line.ya);
+	if (line.ya < line.yb)
+		line.inc_y = 1;
+	else
+		line.inc_y = -1;
+	draw_line_loop(image, line);
 }
