@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 16:45:17 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/22 12:06:01 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct	s_line
 	int	yb;
 }	t_line;
 
-int	ft_atoi_safe2(const char *str, int *err_atoi);
 // read_file.c
 int	read_file(t_map *map, char *filename);
 // draw_tools.c
