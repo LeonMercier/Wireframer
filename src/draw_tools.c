@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:31:32 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/22 14:53:55 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:21:46 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	set_all_pixels(mlx_image_t *image, uint32_t color)
 	}
 }
 
-int	get_channel(int rgba, char channel)
+static int	get_channel(int rgba, char channel)
 {
 	if (channel == 'r')
 		return ((rgba >> 24) & 0xFF);
@@ -43,7 +43,7 @@ int	get_channel(int rgba, char channel)
 	return (0);
 }
 
-uint32_t	get_gradient(t_line line)
+static uint32_t	get_gradient(t_line line)
 {
 	double		curlen_by_totlen;
 	uint32_t	ret_color;
@@ -66,7 +66,7 @@ uint32_t	get_gradient(t_line line)
 	return (ret_color);
 }
 
-void	draw_line_loop(mlx_image_t *image, t_line line)
+static void	draw_line_loop(mlx_image_t *image, t_line line)
 {
 	int	err;
 	int	new_err;
