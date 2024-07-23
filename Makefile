@@ -6,13 +6,12 @@
 #    By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/01 11:56:58 by lemercie          #+#    #+#              #
-#    Updated: 2024/07/23 10:25:54 by lemercie         ###   ########.fr        #
+#    Updated: 2024/07/23 10:43:09 by lemercie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= fdf
-#CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code -Ofast
-CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code
+CFLAGS	:= -Wextra -Wall -Werror
 LIBMLX	:= ./lib/MLX42
 LIBFT	:= ./lib/libft
 
@@ -47,14 +46,11 @@ $(NAME): $(OBJS) ./include/fdf.h
 	$(CC) $(OBJS) $(LIBS) $(LIBFT)/libft.a $(HEADERS) -o $(NAME)
 
 clean:
-	#rm .libmlx_cloned
-	#rm .libft_cloned
 	rm -rf $(OBJS)
-	#rm -rf $(LIBMLX)/build
 
 fclean: clean
 	rm -rf $(NAME)
 
 re: clean all
 
-.PHONY: all, clean, fclean, re, libmlx
+.PHONY: all, clean, fclean, re, libmlx, libft
