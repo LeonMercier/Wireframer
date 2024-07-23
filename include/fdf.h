@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/23 09:47:46 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:25:41 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,4 @@ void	free_strv(char **strv);
 void	fdf_cleanup(t_map *map);
 void	fdf_cleanup_exit(t_map *map);
 int		hexchar_to_int(char c);
-// debug.c
-void	print_map(t_map *map);
-void	print_map_2d(t_map *map);
-
 #endif
