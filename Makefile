@@ -6,7 +6,7 @@
 #    By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/01 11:56:58 by lemercie          #+#    #+#              #
-#    Updated: 2024/07/23 10:43:09 by lemercie         ###   ########.fr        #
+#    Updated: 2024/07/23 11:27:03 by lemercie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,8 @@ all: libft libmlx $(NAME)
 
 libmlx: .libmlx_cloned
 
-.libft_cloned: 
-	git clone git@github.com:LeonMercier/libft_plus.git $(LIBFT)
+libft: 
 	make -C $(LIBFT)
-	touch .libft_cloned
-
-libft: .libft_cloned
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) 
@@ -47,9 +43,11 @@ $(NAME): $(OBJS) ./include/fdf.h
 
 clean:
 	rm -rf $(OBJS)
+	make clean -C $(LIBFT)
 
 fclean: clean
 	rm -rf $(NAME)
+	make fclean -C $(LIBFT)
 
 re: clean all
 
