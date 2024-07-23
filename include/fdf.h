@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/23 09:11:33 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/23 09:47:46 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	ft_zoom(t_map *map, double zoomfactor);
 void	get_min_coords(t_map *map, t_point *min);
 void	get_max_coords(t_map *map, t_point *max);
 void	flatten(t_map *map, double flattenfactor);
+int		map_add_row(t_map *map);
 // utils.c
 void	free_map(t_map *map);
 void	free_strv(char **strv);

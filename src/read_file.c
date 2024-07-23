@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/23 09:25:10 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/23 09:47:51 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,23 +88,13 @@ static int	parse_line(t_map *map, char *line)
 {
 	char	**strv;
 	int		i;
-	t_point	**new_arr;
 
-	strv = ft_split(line, ' ');
 	map->rows++;
-	new_arr = malloc(map->rows * sizeof(t_point *));
-	if (!new_arr || !strv)
+	if (map_add_row(map) < 0)
 		return (-1);
-	if (map->arr)
-		ft_memmove(new_arr, map->arr, sizeof(t_point *) * (map->rows - 1));
-	free(map->arr);
-	map->arr = new_arr;
-	map->arr[map->rows - 1] = malloc(map->cols * sizeof(t_point));
-	if (!map->arr[map->rows - 1])
-	{
-		free_strv(strv);
+	strv = ft_split(line, ' ');
+	if (!strv)
 		return (-1);
-	}
 	i = 0;
 	while (i < map->cols)
 	{

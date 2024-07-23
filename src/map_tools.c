@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:55:12 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/19 16:42:23 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/23 09:47:29 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,21 @@ void	flatten(t_map *map, double flattenfactor)
 		}
 		y++;
 	}
+}
+
+int	map_add_row(t_map *map)
+{
+	t_point	**new_arr;
+
+	new_arr = malloc(map->rows * sizeof(t_point *));
+	if (!new_arr)
+		return (-1);
+	if (map->arr)
+		ft_memmove(new_arr, map->arr, sizeof(t_point *) * (map->rows - 1));
+	free(map->arr);
+	map->arr = new_arr;
+	map->arr[map->rows - 1] = malloc(map->cols * sizeof(t_point));
+	if (!map->arr[map->rows - 1])
+		return (-1);
+	return (0);
 }
