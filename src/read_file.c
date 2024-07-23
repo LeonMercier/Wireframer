@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/22 16:16:22 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/23 09:25:10 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	get_colnum(char *line)
 {
 	int		len;
 	char	**strv;
+	char	**orig_strv;
 
 	len = 0;
 	strv = ft_split(line, ' ');
@@ -26,6 +27,7 @@ static int	get_colnum(char *line)
 		free(line);
 		return (-1);
 	}
+	orig_strv = strv;
 	while (*strv)
 	{
 		if (!ft_isdigit(*strv[0]) && *strv[0] != '-' && *strv[0] != '+')
@@ -33,6 +35,7 @@ static int	get_colnum(char *line)
 		strv++;
 		len++;
 	}
+	free_strv(orig_strv);
 	return (len);
 }
 
@@ -77,6 +80,7 @@ static int	parse_point(t_map *map, char *point, int y, int x)
 		map->arr[y][x].color = parse_color(strv[1]);
 	else
 		map->arr[y][x].color = 0xFFFFFFFF;
+	free_strv(strv);
 	return (0);
 }
 
@@ -97,15 +101,18 @@ static int	parse_line(t_map *map, char *line)
 	map->arr = new_arr;
 	map->arr[map->rows - 1] = malloc(map->cols * sizeof(t_point));
 	if (!map->arr[map->rows - 1])
+	{
+		free_strv(strv);
 		return (-1);
+	}
 	i = 0;
 	while (i < map->cols)
 	{
-		if (parse_point(map, *strv, map->rows - 1, i) == -1)
+		if (parse_point(map, strv[i], map->rows - 1, i) == -1)
 			return (-1);
-		strv++;
 		i++;
 	}
+	free_strv(strv);
 	return (0);
 }
 

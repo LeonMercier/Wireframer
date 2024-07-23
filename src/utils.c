@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 11:13:44 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/22 17:03:06 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/23 09:18:59 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,22 @@ void	free_map(t_map *map)
 			i++;
 		}
 		free(map->arr);
+	}
+}
+
+void	free_strv(char **strv)
+{
+	int	i;
+
+	i = 0;
+	if (strv)
+	{
+		while (strv[i])
+		{
+			free(strv[i]);
+			i++;
+		}
+		free(strv);
 	}
 }
 

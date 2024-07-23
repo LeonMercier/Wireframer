@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/22 17:07:55 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/23 09:11:33 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	get_max_coords(t_map *map, t_point *max);
 void	flatten(t_map *map, double flattenfactor);
 // utils.c
 void	free_map(t_map *map);
+void	free_strv(char **strv);
 void	fdf_cleanup(t_map *map);
 void	fdf_cleanup_exit(t_map *map);
 int		hexchar_to_int(char c);
