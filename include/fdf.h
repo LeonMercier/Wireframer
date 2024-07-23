@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:04:23 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/23 10:25:41 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:40:24 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 
-typedef struct	s_point
+typedef struct s_point
 {
 	double			screen_x;
 	double			screen_y;
@@ -28,14 +28,14 @@ typedef struct	s_point
 	int				color;
 }	t_point;
 
-typedef struct	s_map
+typedef struct s_map
 {
-	t_point **arr;
-	int	cols;
-	int	rows;
+	t_point	**arr;
+	int		cols;
+	int		rows;
 }	t_map;
 
-typedef struct	s_line
+typedef struct s_line
 {
 	int	xa;
 	int	ya;
@@ -50,7 +50,7 @@ typedef struct	s_line
 }	t_line;
 
 // read_file.c
-int	read_file(t_map *map, int fd);
+int		read_file(t_map *map, int fd);
 // draw_tools.c
 void	set_all_pixels(mlx_image_t *image, uint32_t color);
 void	draw_line(mlx_image_t *image, t_line line);

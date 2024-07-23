@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:21:35 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/23 09:47:51 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:42:56 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static int	parse_color(char *str)
 	return (color);
 }
 
-// the second call to ft_split get rid of the newlines of the last column
 static int	parse_point(t_map *map, char *point, int y, int x)
 {
 	char	**strv;

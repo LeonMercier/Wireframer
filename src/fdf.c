@@ -6,7 +6,7 @@
 /*   By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:41:08 by lemercie          #+#    #+#             */
-/*   Updated: 2024/07/23 09:27:55 by lemercie         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:41:37 by lemercie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ static int	open_file(t_map *map, char *filename)
 	return (0);
 }
 
-// TODO add free() for each ft_split()
 int	main(int argc, char **argv)
 {
 	t_map	map;
