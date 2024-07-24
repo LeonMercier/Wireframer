@@ -6,12 +6,13 @@
 #    By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/01 11:56:58 by lemercie          #+#    #+#              #
-#    Updated: 2024/07/23 11:27:03 by lemercie         ###   ########.fr        #
+#    Updated: 2024/07/24 10:11:13 by lemercie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:= fdf
+CC		:= cc
 CFLAGS	:= -Wextra -Wall -Werror
+NAME	:= fdf
 LIBMLX	:= ./lib/MLX42
 LIBFT	:= ./lib/libft
 
