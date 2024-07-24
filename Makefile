@@ -6,7 +6,7 @@
 #    By: lemercie <lemercie@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/01 11:56:58 by lemercie          #+#    #+#              #
-#    Updated: 2024/07/24 10:11:13 by lemercie         ###   ########.fr        #
+#    Updated: 2024/07/24 10:25:20 by lemercie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,10 @@ all: libft libmlx $(NAME)
 
 .libmlx_cloned: 
 	git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX)
-	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 	touch .libmlx_cloned
 
 libmlx: .libmlx_cloned
+	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 libft: 
 	make -C $(LIBFT)
@@ -45,6 +45,7 @@ $(NAME): $(OBJS) ./include/fdf.h
 clean:
 	rm -rf $(OBJS)
 	make clean -C $(LIBFT)
+	rm -fr $(LIBMLX)/build
 
 fclean: clean
 	rm -rf $(NAME)
