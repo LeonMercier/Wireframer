@@ -21,6 +21,6 @@ Run the program with a map file:
 
     ./fdf ./test_maps/42.fdf
 
-Test maps are included in the `test_maps` folder. Maps must have a `.fdf` ending. 
+Test maps are included in the `test_maps` folder. Maps must have a `.fdf` ending. Press Esc to exit the program.
 
 
