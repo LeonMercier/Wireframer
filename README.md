@@ -1,4 +1,4 @@
-# Fil de fer
+# Wireframer
 Create a wireframe projection from a heightmap
 
 ![Screenshot](./screenshot-42.png)
